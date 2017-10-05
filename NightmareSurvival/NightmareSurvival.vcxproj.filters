@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{06e21b12-b08a-4390-bb92-05a36508cde2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor">
+      <UniqueIdentifier>{610f4a2b-d9ef-4839-9e20-91deacec9dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\EnemyAlgorithms">
+      <UniqueIdentifier>{870da6a2-b719-4769-b706-5b53aa99cff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{7faf9cea-c708-47a0-8cd0-69a031211d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Pool">
+      <UniqueIdentifier>{412b878e-f00e-4bea-929d-ef4b29d697be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items">
+      <UniqueIdentifier>{68b8765f-b63c-4fc3-90bc-41372603e965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Upgrades">
+      <UniqueIdentifier>{3813cb99-58ff-43a3-ab3e-897ef3392345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Weapons">
+      <UniqueIdentifier>{a4c4b8e5-6a7d-4b34-ae4d-b8081e1e3f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World Management">
+      <UniqueIdentifier>{62a63f73-39d0-4a04-af85-46e01a41277d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World Management\Level Management">
+      <UniqueIdentifier>{3f1cdc41-d518-412c-8502-e2e8d32f5012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\WalletManagement">
+      <UniqueIdentifier>{6049f2ba-5560-4705-9424-12f3af5b96bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World Management\Level Management\WaveManagerRequestEnemyStrategy">
+      <UniqueIdentifier>{69f865a2-e3f7-4921-817f-2d255a2d92b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Demon.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Vampire.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculateMove.cpp">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="PistolBullet.cpp">
+      <Filter>Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotgunBullet.cpp">
+      <Filter>Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="Rocket.cpp">
+      <Filter>Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawn.cpp">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="Vendor.cpp">
+      <Filter>Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CycleWeapons.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponsFactory.cpp">
+      <Filter>Items\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletAlgorithm.cpp">
+      <Filter>Items\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullets.cpp">
+      <Filter>Object Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="Mediator.cpp">
+      <Filter>Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="UpgradeFactory.cpp">
+      <Filter>Items\Upgrades</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveManager.cpp">
+      <Filter>World Management\Level Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Border.cpp">
+      <Filter>World Management</Filter>
+    </ClCompile>
+    <ClCompile Include="Dots.cpp">
+      <Filter>World Management</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>World Management</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderManagement.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="WalletMediator.cpp">
+      <Filter>Player\WalletManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Wallet.cpp">
+      <Filter>Player\WalletManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsFactory.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="CurrentWave.cpp">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomWave.cpp">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalWave.cpp">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManagement.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Boss.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Demon.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemies.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Vampire.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAlgorithms.h">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="Directions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CalculateMove.h">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="PistolBullet.h">
+      <Filter>Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotgunBullet.h">
+      <Filter>Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Rocket.h">
+      <Filter>Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawn.h">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor.h">
+      <Filter>Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyDamageRates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Altitudes.h">
+      <Filter>Enemies\EnemyAlgorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAlgorithms.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CycleWeapons.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketLauncher.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotgun.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponsFactory.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponAlgorithms.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletAlgorithm.h">
+      <Filter>Items\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullets.h">
+      <Filter>Object Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="Mediator.h">
+      <Filter>Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="Participants.h">
+      <Filter>Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammo.h">
+      <Filter>Items\Upgrades</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Items\Upgrades</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstAid.h">
+      <Filter>Items\Upgrades</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Items\Upgrades</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeFactory.h">
+      <Filter>Items\Upgrades</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveManager.h">
+      <Filter>World Management\Level Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Dots.h">
+      <Filter>World Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Border.h">
+      <Filter>World Management</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>World Management</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderManagement.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="WalletMediator.h">
+      <Filter>Player\WalletManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="WalletManagementParticipants.h">
+      <Filter>Player\WalletManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Wallet.h">
+      <Filter>Player\WalletManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsFactory.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="WalletManagementParticipantType.h">
+      <Filter>Player\WalletManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveManagerRequestEnemyStrategy.h">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="Waves.h">
+      <Filter>World Management\Level Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CurrentWave.h">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomWave.h">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalWave.h">
+      <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManagement.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

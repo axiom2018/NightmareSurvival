@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{57BE991F-6032-4CEC-856D-83E41004CB66}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>NightmareSurvival</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BorderManagement.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BulletAlgorithm.cpp" />
+    <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="CurrentWave.cpp" />
+    <ClCompile Include="CycleWeapons.cpp" />
+    <ClCompile Include="Demon.cpp" />
+    <ClCompile Include="Enemies.cpp" />
+    <ClCompile Include="EnemyManagement.cpp" />
+    <ClCompile Include="FinalWave.cpp" />
+    <ClCompile Include="ItemsFactory.cpp" />
+    <ClCompile Include="Mediator.cpp" />
+    <ClCompile Include="RandomWave.cpp" />
+    <ClCompile Include="Spawn.cpp" />
+    <ClCompile Include="CalculateMove.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="PistolBullet.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rocket.cpp" />
+    <ClCompile Include="ShotgunBullet.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Border.cpp" />
+    <ClCompile Include="Dots.cpp" />
+    <ClCompile Include="UpgradeFactory.cpp" />
+    <ClCompile Include="Vampire.cpp" />
+    <ClCompile Include="Vendor.cpp" />
+    <ClCompile Include="Wallet.cpp" />
+    <ClCompile Include="WalletMediator.cpp" />
+    <ClCompile Include="WaveManager.cpp" />
+    <ClCompile Include="WeaponsFactory.cpp" />
+    <ClCompile Include="World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Altitudes.h" />
+    <ClInclude Include="Ammo.h" />
+    <ClInclude Include="Armor.h" />
+    <ClInclude Include="BorderManagement.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BulletAlgorithm.h" />
+    <ClInclude Include="Bullets.h" />
+    <ClInclude Include="CurrentWave.h" />
+    <ClInclude Include="CycleWeapons.h" />
+    <ClInclude Include="Demon.h" />
+    <ClInclude Include="Directions.h" />
+    <ClInclude Include="Enemies.h" />
+    <ClInclude Include="EnemyAlgorithms.h" />
+    <ClInclude Include="EnemyDamageRates.h" />
+    <ClInclude Include="EnemyManagement.h" />
+    <ClInclude Include="FinalWave.h" />
+    <ClInclude Include="Mediator.h" />
+    <ClInclude Include="Participants.h" />
+    <ClInclude Include="PlayerAlgorithms.h" />
+    <ClInclude Include="RandomWave.h" />
+    <ClInclude Include="Spawn.h" />
+    <ClInclude Include="CalculateMove.h" />
+    <ClInclude Include="FirstAid.h" />
+    <ClInclude Include="Items.h" />
+    <ClInclude Include="ItemsFactory.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Pistol.h" />
+    <ClInclude Include="PistolBullet.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Rocket.h" />
+    <ClInclude Include="RocketLauncher.h" />
+    <ClInclude Include="Shotgun.h" />
+    <ClInclude Include="ShotgunBullet.h" />
+    <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="Entities.h" />
+    <ClInclude Include="Border.h" />
+    <ClInclude Include="Dots.h" />
+    <ClInclude Include="UpgradeFactory.h" />
+    <ClInclude Include="Vampire.h" />
+    <ClInclude Include="Vendor.h" />
+    <ClInclude Include="Wallet.h" />
+    <ClInclude Include="WalletManagementParticipants.h" />
+    <ClInclude Include="WalletManagementParticipantType.h" />
+    <ClInclude Include="WalletMediator.h" />
+    <ClInclude Include="WaveManager.h" />
+    <ClInclude Include="WaveManagerRequestEnemyStrategy.h" />
+    <ClInclude Include="Waves.h" />
+    <ClInclude Include="WeaponAlgorithms.h" />
+    <ClInclude Include="WeaponsFactory.h" />
+    <ClInclude Include="World.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
