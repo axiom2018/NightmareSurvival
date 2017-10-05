@@ -16,17 +16,6 @@
 // Initialize singleton to nullptr.
 World *World::_instance = nullptr;
 
-// Singleton management function.
-World *World::Instance()
-{
-    if (_instance == 0)
-    {
-        _instance = new World;
-    }
-
-    return _instance;
-}
-
 // Initialize world and other necessary variables.
 World::World() :
     m_gameRunning(true)
@@ -47,6 +36,17 @@ World::World() :
     m_pMediator->RegisterParticipant(m_pVendor);
     // Step 8. Init enemy management pointer.
     m_pEnemyManagement = new EnemyManagement(k_rows, k_columns);
+}
+
+// Singleton management function.
+World *World::Instance()
+{
+    if (_instance == 0)
+    {
+        _instance = new World;
+    }
+
+    return _instance;
 }
 
 // Create game board and align outer lines of it.
@@ -111,6 +111,15 @@ void World::CreateWorld()
 
     // Step 8. Generate the waves of enemies.
     m_pEnemyManagement->GenerateEnemies();
+}
+
+// CalculateMove.cpp calls CheckBorder as a movement test for enemies.
+bool World::CheckBorder(int index) const
+{
+    if (m_ppSpace[index]->GetChar() == '#')
+        return true;
+
+    return false;
 }
 
 void World::MoveToNextLevel()
@@ -213,9 +222,9 @@ void World::Update()
     system("cls");
 }
 
-std::pair<int, int> World::GetPlayerPosition() const
+void World::TerminateGame()
 {
-    return std::make_pair(m_pPlayer->GetY(), m_pPlayer->GetX());
+    m_gameRunning = false;
 }
 
 int World::GetPlayerCurrency() const

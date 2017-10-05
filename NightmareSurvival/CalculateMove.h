@@ -21,7 +21,6 @@ private:
     int m_delay;
     int m_maxDelay;
     int m_enemyDamage;
-    class Entities **m_ppWorld;
     std::pair<int, int> m_savePlayerPos;
     std::vector<class Enemies*> m_pSaveEnemies;
     std::vector<std::pair<int, int>> m_enemyPositions;

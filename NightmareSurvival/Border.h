@@ -6,7 +6,6 @@
 
 class Border : public Entities
 {
-private:
     char m_border = '#';
 public:
     virtual void Draw() const override;

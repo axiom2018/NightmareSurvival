@@ -14,7 +14,6 @@
 // Initialize settings with constructor.
 CalculateMove::CalculateMove(int enemySpeedDelay, int enemyDamage)
 {
-    m_ppWorld = World::Instance()->GetSpace();
     m_width = World::Instance()->GetWidth();
     m_height = World::Instance()->GetHeight();
     m_delay = enemySpeedDelay;
@@ -27,11 +26,21 @@ CalculateMove::CalculateMove(int enemySpeedDelay, int enemyDamage)
 void CalculateMove::ApplyDamage(int *x, int *y)
 {
     // Step 1. Get player position.
-    std::pair<int, int> playerPos = World::Instance()->GetPlayerPosition();
+    // std::pair<int, int> playerPos = World::Instance()->GetPlayerPosition();
 
-    // Step 2. If players position matches an enemys positon then apply proper damage.
+    int playerX = World::Instance()->GetPlayer()->GetX();
+    int playerY = World::Instance()->GetPlayer()->GetY();
+
+    /* Step 2. If players position matches an enemys positon then apply proper damage.
     if (playerPos.second == *x
         && playerPos.first == *y)
+    {
+        World::Instance()->GetPlayer()->Damage(m_enemyDamage);
+    }
+    */
+
+    if (playerX == *x
+        && playerY == *y)
     {
         World::Instance()->GetPlayer()->Damage(m_enemyDamage);
     }
@@ -40,7 +49,7 @@ void CalculateMove::ApplyDamage(int *x, int *y)
 // Enemy cannot move into the wall.
 bool CalculateMove::BorderCheck(int index)
 {
-    if (m_ppWorld[index]->GetChar() == '#') // Update: Put this character in World.cpp.
+    if (World::Instance()->CheckBorder(index))
         return true;
     
     return false;
@@ -467,8 +476,8 @@ void CalculateMove::CalculateEnemyMove(int *x, int *y)
 
     // Step 4. Continue with move calculation process by getting player position.
     Coordinates playerPos; 
-    playerPos.first = World::Instance()->GetPlayerPosition().second;
-    playerPos.second = World::Instance()->GetPlayerPosition().first;
+    playerPos.first = World::Instance()->GetPlayer()->GetX();
+    playerPos.second = World::Instance()->GetPlayer()->GetY();
 
     // Step 5. Check the x position.
     CheckXPos(playerPos, x, y);

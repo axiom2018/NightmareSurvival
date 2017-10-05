@@ -29,16 +29,15 @@ private:
 public:
     static World *Instance();
     void CreateWorld();
-    bool CheckIsGameRunning() const { return m_gameRunning; }
-    void Update();
-    void TerminateGame() { m_gameRunning = false; }
-    int GetWidth() const { return k_columns; }
-    int GetHeight() const { return k_rows; }
-    int GetPlayerCurrency() const;
-    class Entities **GetSpace() const { return m_ppSpace; } 
+    bool CheckBorder(int index) const;
     class WalletMediator * GetWalletMediator() const { return m_pWalletMediator; }
     class EnemyManagement * GetEnemyManager() const { return m_pEnemyManagement; }
-    class Player *GetPlayer() const { return m_pPlayer; } 
-    std::pair<int, int> GetPlayerPosition() const;
+    class Player *GetPlayer() const { return m_pPlayer; }
+    bool CheckIsGameRunning() const { return m_gameRunning; }
+    int GetWidth() const { return k_columns; }
+    int GetHeight() const { return k_rows; }
+    void Update();
+    void TerminateGame();
+    int GetPlayerCurrency() const;
     void DeleteWorld();
 };

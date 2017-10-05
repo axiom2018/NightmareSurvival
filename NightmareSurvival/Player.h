@@ -48,7 +48,6 @@ private:
     bool UseUpgrade(int typeOfUpgrade);
     bool CheckAreaForBorders(char key);
 public:
-    // Player(int worldWidth, int worldHeight, Mediator *pMediator);
     Player(int worldWidth, int worldHeight);
     void DrawPlayer() const { std::cout << m_player; }
     bool UpdatePlayer();

@@ -34,8 +34,11 @@ bool BulletAlgorithm::CheckBulletBize()
 
 void BulletAlgorithm::SetData()
 {
-    m_x = World::Instance()->GetPlayerPosition().second; // Assign proper x and y position.
-    m_y = World::Instance()->GetPlayerPosition().first;
+    // m_x = World::Instance()->GetPlayerPosition().second; // Assign proper x and y position.
+    // m_y = World::Instance()->GetPlayerPosition().first;
+
+    m_x = World::Instance()->GetPlayer()->GetX();
+    m_y = World::Instance()->GetPlayer()->GetY();
 
     m_direction = World::Instance()->GetPlayer()->GetDirection(); 
 }
