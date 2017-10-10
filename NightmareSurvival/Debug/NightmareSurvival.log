@@ -1,19 +1,2 @@
 ﻿  World.cpp
-  BulletAlgorithm.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Vendor.cpp
-  Vampire.cpp
-  Spawn.cpp
-  Skeleton.cpp
-  Player.cpp
-  ObjectPool.cpp
-  Mediator.cpp
-  Main.cpp
-  EnemyManagement.cpp
-  Enemies.cpp
-  Demon.cpp
-  CalculateMove.cpp
-  Boss.cpp
-  Border.cpp
   NightmareSurvival.vcxproj -> C:\Users\Axiom\Desktop\NightmareSurvival(Final)\Debug\NightmareSurvival.exe

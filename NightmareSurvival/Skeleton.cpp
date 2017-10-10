@@ -58,11 +58,6 @@ void Skeleton::DecreaseHealth(int amount)
     {
         m_health = 0;
         m_life = Life::Dead;
-        // m_value = 30 + (rand() % 90);
-        // m_pPlayer->AwardMoney(m_value);
-        /* I'd rather not even have the Enemy being able to award money. What I'd like is for an entity like World to check if an enemy
-        is dead, if so, we'll have a function that gets a random award amount (that is the enemies responsibility). Then, before
-        the enemy is actually  deleted, we'll get that money from it and send it to the mediator to send it to the player. */
     }
 
     else

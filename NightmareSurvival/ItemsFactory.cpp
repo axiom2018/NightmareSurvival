@@ -25,3 +25,8 @@ bool ItemsFactory::WeaponIDCheck(int weaponID)
 
     return false;
 }
+
+bool ItemsFactory::UpgradeIDCheck(int upgradeID)
+{
+    return false;
+}

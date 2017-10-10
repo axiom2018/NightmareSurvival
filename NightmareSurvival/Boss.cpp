@@ -55,8 +55,6 @@ void Boss::DecreaseHealth(int amount)
     {
         m_health = 0;
         m_life = Life::Dead;
-        // m_value = 100 + (rand() % 200);
-        // m_pPlayer->AwardMoney(m_value); // Maybe the enemies shoudn't be coupled to the player. Then what's a BETTER way of doing this?
     }
 
     else

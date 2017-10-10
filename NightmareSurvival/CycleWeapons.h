@@ -1,12 +1,12 @@
 // CycleInventory.h
 #pragma once
-#include "PlayerAlgorithms.h"
+#include <vector>
 
-class CycleWeapons : public PlayerAlgorithms
+class CycleWeapons
 {
 private:
-    class Player *m_pPlayer;
     std::vector<class Items*> m_pValidWeapons;
+    class InventoryManager *m_pIManager;
     char m_cursor;
     char m_marker;
     int m_currentChosenIndex;
@@ -20,10 +20,10 @@ private:
     void Selection(int *pIndex, char direction);
     void ProcessWeapons(std::vector<class Items*> pPlayerInventory);
     bool ProcessPlayerInput(char input);
-    void DisplayPlayerWeapons();
+    void DisplayWeapons();
 public:
-    CycleWeapons(class Player *player);
-    virtual bool CycleWeaponry(std::vector<class Items*> pPlayerInventory, class Items &pPlayerCurrentWeapon) override;
+    CycleWeapons(class InventoryManager *pIManager);
+    bool WeaponryGUI(std::vector<class Items*> pInventory, class Items &pPlayerCurrentWeapon);
     ~CycleWeapons() {};
 };
 

@@ -55,8 +55,6 @@ void Demon::DecreaseHealth(int amount)
     {
         m_health = 0;
         m_life = Life::Dead;
-        // m_value = 40 + (rand() % 150);
-        // m_pPlayer->AwardMoney(m_value);
     }
 
     else

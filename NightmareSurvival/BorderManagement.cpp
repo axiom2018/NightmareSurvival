@@ -50,3 +50,30 @@ bool BorderManagement::EastBorderCheck()
 
     return false;
 }
+
+bool BorderManagement::CheckAreaForBorders(char key)
+{
+    switch (key)
+    {
+    case 'w':
+        if (NorthBorderCheck())
+            return true;
+        break;
+    case 'a':
+        if (WestBorderCheck())
+            return true;
+        break;
+    case 's':
+        if (SouthBorderCheck())
+            return true;
+        break;
+    case 'd':
+        if (EastBorderCheck())
+            return true;
+        break;
+    default:
+        break;
+    }
+
+    return false;
+}

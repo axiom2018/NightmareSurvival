@@ -2,6 +2,8 @@
 #pragma once
 #include <vector>
 
+// No need for this to be a Base class and CycleWeapons.h/.cpp to be a subclass, when CycleWeapons is the ONLY one inheriting.
+
 class PlayerAlgorithms
 {
 public:

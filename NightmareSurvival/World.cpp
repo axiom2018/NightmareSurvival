@@ -14,7 +14,7 @@
 #include "Vendor.h"
 
 // Initialize singleton to nullptr.
-World *World::_instance = nullptr;
+World *World::m_pInstance = nullptr;
 
 // Initialize world and other necessary variables.
 World::World() :
@@ -41,12 +41,12 @@ World::World() :
 // Singleton management function.
 World *World::Instance()
 {
-    if (_instance == 0)
+    if (m_pInstance == 0)
     {
-        _instance = new World;
+        m_pInstance = new World;
     }
 
-    return _instance;
+    return m_pInstance;
 }
 
 // Create game board and align outer lines of it.
@@ -149,9 +149,12 @@ void World::MoveToNextLevel()
 
 bool World::DrawBullets(int x, int y)
 {
+    /*
     if (m_pPlayer->DrawBullets(x, y))
         return true;
 
+    return false;
+    */
     return false;
 }
 
@@ -191,7 +194,7 @@ void World::UpdateWorld()
 
 void World::UpdateBullets()
 {
-    m_pPlayer->UpdateBullets();
+    // m_pPlayer->UpdateBullets();
 }
 
 void World::Update()
@@ -227,11 +230,6 @@ void World::TerminateGame()
     m_gameRunning = false;
 }
 
-int World::GetPlayerCurrency() const
-{
-    return m_pMediator->GetPlayerMoney(m_pVendor);
-}
-
 void World::DeleteWorld()
 {
     ObjectPool::GetInstance()->DeletePool();
@@ -263,6 +261,6 @@ void World::DeleteWorld()
     delete[] m_ppSpace;
     m_ppSpace = nullptr;
 
-    delete _instance;
-    _instance = nullptr;
+    delete m_pInstance;
+    m_pInstance = nullptr;
 }

@@ -148,14 +148,16 @@
   <ItemGroup>
     <ClCompile Include="BorderManagement.cpp" />
     <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="BulletAlgorithm.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="CurrentWave.cpp" />
+    <ClCompile Include="CurrentWeaponManager.cpp" />
     <ClCompile Include="CycleWeapons.cpp" />
     <ClCompile Include="Demon.cpp" />
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="EnemyManagement.cpp" />
     <ClCompile Include="FinalWave.cpp" />
+    <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="ItemsFactory.cpp" />
     <ClCompile Include="Mediator.cpp" />
     <ClCompile Include="RandomWave.cpp" />
@@ -185,9 +187,10 @@
     <ClInclude Include="Armor.h" />
     <ClInclude Include="BorderManagement.h" />
     <ClInclude Include="Boss.h" />
-    <ClInclude Include="BulletAlgorithm.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="CurrentWave.h" />
+    <ClInclude Include="CurrentWeaponManager.h" />
     <ClInclude Include="CycleWeapons.h" />
     <ClInclude Include="Demon.h" />
     <ClInclude Include="Directions.h" />
@@ -196,6 +199,7 @@
     <ClInclude Include="EnemyDamageRates.h" />
     <ClInclude Include="EnemyManagement.h" />
     <ClInclude Include="FinalWave.h" />
+    <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="Mediator.h" />
     <ClInclude Include="Participants.h" />
     <ClInclude Include="PlayerAlgorithms.h" />

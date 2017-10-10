@@ -4,96 +4,40 @@
 #include "Entities.h"
 #include "Border.h"
 #include "Items.h"
-#include "BulletAlgorithm.h"
 #include <iostream>
-#include "WeaponsFactory.h"
 #include "CycleWeapons.h"
 #include "Vendor.h"
-// #include "Mediator.h"
 #include "BorderManagement.h"
 #include "Wallet.h"
+#include "InventoryManager.h"
 #include <conio.h>
 #include <string>
 
-// Why does player need to know about mediator anyway?
-// Player::Player(int worldWidth, int worldHeight) :
-// Player::Player(int worldWidth, int worldHeight, Mediator *pMediator) :
 Player::Player(int worldWidth, int worldHeight) :
     m_directions(Directions::North),
     m_player('^'),
     m_health(80),
     m_armor(0),
-    m_money(0),
     m_coolDown(2),
     m_saveWorldWidth(0),
     m_saveWorldHeight(0)
 {
+    // Step 1. Save world sizes.
     m_saveWorldWidth = worldWidth;
     m_saveWorldHeight = worldHeight;
 
+    // Step 2. Set player's position.
     m_x = m_saveWorldWidth / 2;
     m_y = m_saveWorldHeight / 2;
 
-    m_pCycleInventory = new CycleWeapons(this);
-    m_pWF = new WeaponsFactory;
-    // m_pMediator = pMediator; 
+    // Step 3. Init inventory manager.
+    m_pInventoryManager = new InventoryManager;
+
+    // Step 4. Init border manager.
     m_pBorderManagement = new BorderManagement(&m_x, &m_y, m_saveWorldWidth, m_saveWorldHeight);
+
+    // Step 5. Init wallet.
     m_pWallet = new Wallet;
-
-    m_pInventory.push_back(m_pWF->GetItem(0)); // Get Pistol.
-    m_pCurrentWeapon = m_pInventory.at(0); // Set current weapon to the Pistol.
-    m_pBulletControl = new BulletAlgorithm(worldWidth, worldHeight);
-}
-
-void Player::CycleWeaponInventory()
-{
-    // Step 1. Get inventory size for loops and set variable to keep track of weapons in inventory.
-    int playerInventorySize = m_pInventory.size();
-    int totalWeapons = 0;
-
-    // Step 2. Get the ID's of each entity in inventory and test if they are weapons and not items.
-    for (int i = 0; i < playerInventorySize; ++i)
-    {
-        if (ItemsFactory::WeaponIDCheck(m_pInventory.at(i)->GetId()))
-            ++totalWeapons;
-    }
-
-    // Step 3. If player has more than 1 weapon, open inventory.
-    if (totalWeapons > 1)
-    {
-        m_pCycleInventory->CycleWeaponry(m_pInventory, *m_pCurrentWeapon);
-        return;
-    }   
-
-    // (Optional Step) If Step 3 is false, alert the player to get more weapons in their arsenal.
-    std::cout << " You only have 1 weapon! Get more weapons!\n";
-}
-
-bool Player::CheckAreaForBorders(char key)
-{
-    switch (key)
-    {
-    case 'w':
-        if (m_pBorderManagement->NorthBorderCheck())
-            return true;
-        break;
-    case 'a':
-        if (m_pBorderManagement->WestBorderCheck())
-            return true;
-        break;
-    case 's':
-        if (m_pBorderManagement->SouthBorderCheck())
-            return true;
-        break;
-    case 'd':
-        if (m_pBorderManagement->EastBorderCheck())
-            return true;
-        break;
-    default:
-        break;
-    }
-
-    return false;
 }
 
 bool Player::UpdatePlayer()
@@ -103,29 +47,29 @@ bool Player::UpdatePlayer()
     switch (input)
     {
     case 'w':
-        if (!CheckAreaForBorders(input))
+        if(!m_pBorderManagement->CheckAreaForBorders(input))
             m_y -= 1;
         break;
     case 'a':
-        if (!CheckAreaForBorders(input))
+        if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_x -= 1;
         break;
     case 's':
-        if (!CheckAreaForBorders(input))
+        if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_y += 1;
         break;
     case 'd':
-        if (!CheckAreaForBorders(input))
+        if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_x += 1;
         break;
     case 'q':
-        Shoot();
+        m_pInventoryManager->ShootWeapon();
         break;
     case 'r':
         Reload();
         break;
     case 'i':
-        CycleWeaponInventory();
+        m_pInventoryManager->OpenInventory();
         break;
     case 'f':
         UseFirstAid();
@@ -152,53 +96,16 @@ void Player::DrawControls() const
 
 void Player::DrawStats() const
 {
-    std::cout << "Health: " << m_health << " Armor: " << m_armor << " Money: " << m_money << "\n";
-    std::cout << "Equipped Gun: " << m_pCurrentWeapon->ItemName() << "   Ammo: " << m_pCurrentWeapon->GetAmmo();
+    std::cout << "Health: " << m_health << " Armor: " << m_armor << " Money: " << m_pWallet->GetFunds() << "\n";
+    std::cout << "Equipped Gun: " << m_pInventoryManager->GetWeaponName() << "   Ammo: " << m_pInventoryManager->GetWeaponAmmunition();
 }
 
-bool Player::WeaponCoolDown()
-{
-    if (m_coolDown == 0)
-        return true; 
-
-    --m_coolDown;
-
-    return false;
-}
-
-bool Player::WeaponAmmunitionCheck(int weaponAmmo) const
-{
-    if (weaponAmmo == 0)
-    {
-        std::cout << " Reload immediately!\n";
-        return true;
-    }
-
-    return false;
-}
-
-void Player::Shoot()
-{
-    // Step 1. If cooldown is not at 0, do not continue with function.
-    if (!WeaponCoolDown())
-        return;
-
-    // Step 2. If weapon is out of ammunition, do not continue with function.
-    if (WeaponAmmunitionCheck(m_pCurrentWeapon->GetAmmo()))
-        return;
-
-    // Step 3. Carry out shooting commands.
-    m_pBulletControl->BulletManager(m_pCurrentWeapon->GetId());
-
-    // Step 4. Decrease ammo and reset cooldown.
-    m_pCurrentWeapon->DecreaseAmmo();
-    m_coolDown = 2;
-}
-
+/*
 int Player::GetBulletsSize() const
 {
     return m_pBulletControl->GetBulletSize();
 }
+*/
 
 bool Player::ArmorDamage(int damage)
 {
@@ -229,6 +136,7 @@ void Player::Damage(int damage)
     m_health -= damage;
 }
 
+/*
 bool Player::DrawBullets(int x, int y)
 {
     if (m_pBulletControl->DrawBullets(x, y))
@@ -246,19 +154,20 @@ void Player::UpdateBullets()
 {
     m_pBulletControl->UpdateBullets();
 }
+*/
 
 bool Player::ApplyUpgrade(int typeOfUpgrade, int index)
 {
     switch (typeOfUpgrade)
     {
     case 3: // Firstaid.
-        m_health += m_pInventory.at(index)->GetUpgradeAmount();
+        // m_health += m_pInventory.at(index)->GetUpgradeAmount();
         return true;
     case 4: // Armor.
-        m_armor += m_pInventory.at(index)->GetUpgradeAmount();
+        // m_armor += m_pInventory.at(index)->GetUpgradeAmount();
         return true;
     case 5: // Ammo.
-        m_pCurrentWeapon->Reload(m_pInventory.at(index)->GetUpgradeAmount());
+        // m_pCurrentWeapon->Reload(m_pInventory.at(index)->GetUpgradeAmount());
         return true;
     default:
         break;
@@ -270,8 +179,9 @@ bool Player::ApplyUpgrade(int typeOfUpgrade, int index)
 bool Player::UseUpgrade(int typeOfUpgrade)
 {
     // Step 1. Get inventory size.
-    m_playerInventorySize = m_pInventory.size();
+    // m_playerInventorySize = m_pInventory.size();
 
+    /*
     // Step 2. Cycle through entire inventory and check if player HAS the upgrade they request.
     for (int i = 0; i < m_playerInventorySize; ++i)
     {
@@ -291,6 +201,7 @@ bool Player::UseUpgrade(int typeOfUpgrade)
             return true;
         }
     }
+    */
 
     return false;
 }
@@ -338,22 +249,20 @@ void Player::AlterDirection(char key)
     }
 }
 
+int Player::GetPlayerMoney() const
+{
+    return m_pWallet->GetFunds();
+}
+
+void Player::SetPlayerMoney(int value)
+{
+    m_pWallet->ReceiveFunds(value);
+}
+
 Player::~Player()
 {
-    for (std::vector<Items*>::iterator it = m_pInventory.begin(); it != m_pInventory.end(); ++it)
-    {
-        delete (*it);
-    }
-    m_pInventory.clear();
-
-    delete m_pCycleInventory;
-    m_pCycleInventory = nullptr;
-
-    delete m_pWF;
-    m_pWF = nullptr;
-
-    delete m_pBulletControl;
-    m_pBulletControl = nullptr;
+    delete m_pInventoryManager;
+    m_pInventoryManager = nullptr;
 
     delete m_pBorderManagement;
     m_pBorderManagement = nullptr;

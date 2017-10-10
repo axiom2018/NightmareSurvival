@@ -9,10 +9,11 @@ class World
 {
 private:
     World();
-    static World *_instance;
+    static World *m_pInstance;
     class Entities **m_ppSpace;
-    class Player *m_pPlayer;
     class EnemyManagement *m_pEnemyManagement;
+
+    class Player *m_pPlayer;
     class Mediator *m_pMediator;
     class WalletMediator *m_pWalletMediator;
     class Vendor *m_pVendor;
@@ -38,6 +39,5 @@ public:
     int GetHeight() const { return k_rows; }
     void Update();
     void TerminateGame();
-    int GetPlayerCurrency() const;
     void DeleteWorld();
 };

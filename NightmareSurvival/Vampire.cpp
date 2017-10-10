@@ -54,8 +54,6 @@ void Vampire::DecreaseHealth(int amount)
     {
         m_health = 0;
         m_life = Life::Dead;
-        // m_value = 60 + (rand() % 110);
-        // m_pPlayer->AwardMoney(m_value);
     }
 
     else
