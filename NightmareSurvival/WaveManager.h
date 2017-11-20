@@ -1,4 +1,4 @@
-// WaveManager.h
+// WaveManager.h 
 #pragma once
 #include "Waves.h"
 

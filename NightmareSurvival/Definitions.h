@@ -54,6 +54,7 @@
 // Etc.
 #define COLUMNS 35
 #define ROWS 20
+#define MAX_ENEMIES 3
 #define PLAYER_HEALTH 80
 #define MAX_POSITION_TESTS 3
 #define MAX_PREREQ_TESTS 2

@@ -1,4 +1,4 @@
-// CurrentWave.cpp
+// CurrentWave.cpp 
 #include "CurrentWave.h"
 
 int CurrentWave::ReturnTypeOfEnemy(Waves curWave)

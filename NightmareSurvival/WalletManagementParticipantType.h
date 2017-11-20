@@ -6,8 +6,8 @@ WalletManagementParticipants in WalletMediator.cpp, and find the Wallet to conti
 This problem is solved thanks to this enum, allowing the WalletMediator to know exactly what is what via an ID
 system. 
 
-Design pluses:
-a) One might say after seeing this implemented, "Great, now everytime we add more enemies we'll have to come back
+Design plus:
+One might say after seeing this implemented, "Great, now everytime we add more enemies we'll have to come back
 here and update this file." Not exactly. See in WalletMediator.cpp the function AddFundsToPlayersWallet() is 
 strictly looking for the players wallet, which of course in the WalletMediators list of pointers. So giving
 each specific enemy a value with this declared enum is completely unnecessary. No one has to give them any

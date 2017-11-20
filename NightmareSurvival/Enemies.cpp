@@ -5,8 +5,8 @@
 #include "Demon.h"
 #include "Boss.h"
 #include "World.h"
+#include "Definitions.h"
 #include <iostream>
-#define MAX_ENEMIES 3
 
 // Enemy system uses factory pattern.
 

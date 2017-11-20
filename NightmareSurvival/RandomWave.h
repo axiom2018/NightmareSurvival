@@ -1,4 +1,4 @@
-// RandomWave.h
+// RandomWave.h 
 #pragma once
 #include "WaveManagerRequestEnemyStrategy.h"
 
