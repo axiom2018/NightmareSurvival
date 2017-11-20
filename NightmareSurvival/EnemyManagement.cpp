@@ -5,14 +5,10 @@
 #include "WalletMediator.h"
 #include "World.h"
 
-EnemyManagement::EnemyManagement(int rows, int columns)
+EnemyManagement::EnemyManagement()
 {
-    // Step 1. Init wave manager.
+    // Step 1. Init wave manager. WaveManager will assist in handling the waves of enemies for every level.
     m_pWaveManager = new WaveManager;
-
-    // Step 2. Save rows and columns. Enemies use them to be more dynamic to any size grid when being created.
-    m_rows = rows;
-    m_columns = columns;
 }
 
 // World.cpp will need access to WaveManager.
@@ -48,7 +44,7 @@ void EnemyManagement::GenerateEnemies()
         World::Instance()->GetWalletMediator()->RegisterParticipant(m_pEnemies.at(i));
 
         // Step 3. Init the enemy.
-        m_pEnemies.at(i)->Init(m_columns, m_rows);
+        m_pEnemies.at(i)->Init();
 
         // Step 4. Increase total amount of enemies.
         ++m_totalEnemies;
@@ -107,15 +103,16 @@ bool EnemyManagement::DrawEnemy(int x, int y) const
 
 EnemyManagement::~EnemyManagement()
 {
-    // Step 1. Delete all enemies and clear the vector.
+    // Step 1. Delete all enemies.
     for (std::vector<Enemies*>::iterator it = m_pEnemies.begin(); it != m_pEnemies.end(); ++it)
     {
         delete (*it);
     }
 
+    // Step 2. Clear the vector.
     m_pEnemies.clear();
 
-    // Step 2. Delete wave manager.
+    // Step 3. Delete wave manager.
     delete m_pWaveManager;
     m_pWaveManager = nullptr;
 }

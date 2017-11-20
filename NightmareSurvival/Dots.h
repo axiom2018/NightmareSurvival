@@ -10,5 +10,5 @@ private:
     char m_dot = '.';
 public:
     virtual void Draw() const override;
-    virtual char GetChar() override;
+    virtual char GetChar() const override;
 };

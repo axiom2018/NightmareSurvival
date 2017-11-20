@@ -1,11 +1,11 @@
-// Mediator.h
+// VendorMediator.h
 #pragma once
 #include <list>
 #include <string>
 
 // Simple mediator pattern to govern who is allowed to communicate. This exercises decoupling.
 
-class Mediator
+class VendorMediator
 {
     std::list<class Participants*> m_pParticipants;
 public:

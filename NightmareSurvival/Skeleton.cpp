@@ -3,39 +3,34 @@
 #include "Spawn.h"
 #include "CalculateMove.h"
 #include "Player.h"
-#include "EnemyDamageRates.h"
-
-// Update: Make mediator so enemies don't communicate directly with player. Decoupling is good.
 
 // Initialize settings with constructor.
 Skeleton::Skeleton() :
     m_pSpawnPoint(nullptr),
     m_pCalculateMove(nullptr),
-    m_windowWidth(0),
-    m_windowHeight(0),
+    m_pHealthManager(nullptr),
     m_symbol('1'),
     m_life(Life::Alive),
-    m_health(2),
-    m_x(1), /// Why calculate this when we do spawn manually?
-    m_y(1),
+    m_x(0),
+    m_y(0),
+    m_speed(SKELETON_SPEED),
     m_damage(SKELETON_DAMAGE),
     m_participantType(WalletManagementParticipantTypes::Enemy)
-    // m_value(0)
 {
-    m_speed = 3;
-
+    // Step 1. Init spawn point.
     m_pSpawnPoint = new Spawn;
+
+    // Step 2. Init calculate move.
     m_pCalculateMove = new CalculateMove(m_speed, m_damage);
+
+    // Step 3. Init health manager.
+    m_pHealthManager = new HealthManager(SKELETON_HEALTH);
 }
 
-void Skeleton::Init(int width, int height)
+void Skeleton::Init()
 {
-    // Step 1. Width and height are required for EnemySpawn and FindPlayer algorithms.
-    m_windowWidth = width;
-    m_windowHeight = height;
-
-    // Step 2. Set enemy spawn point.
-    m_pSpawnPoint->SpawnPoint(&m_y, &m_x, m_windowWidth, m_windowHeight);
+    // Step 1. Set enemy spawn point.
+    m_pSpawnPoint->SpawnPoint(&m_y, &m_x);
 }
 
 void Skeleton::Draw()
@@ -54,16 +49,8 @@ void Skeleton::Move()
 // Enemy health control, and award player if enemy has been killed.
 void Skeleton::DecreaseHealth(int amount)
 {
-    if (m_health - amount <= 0)
-    {
-        m_health = 0;
+    if (m_pHealthManager->DamageHealth(amount))
         m_life = Life::Dead;
-    }
-
-    else
-    {
-        m_health -= amount;
-    }
 }
 
 // Check if enemy is alive for drawing purposes.
@@ -78,7 +65,12 @@ bool Skeleton::IsAlive()
 // After enemy has been killed by player, World.cpp will collect the money to award the player.
 int Skeleton::AwardMoney()
 {
-    return 30 + (rand() % 90);
+    return SKELETON_REWARD_LOW + (rand() % SKELETON_REWARD_HIGH);
+}
+
+WalletManagementParticipantTypes Skeleton::GetType() const
+{
+    return m_participantType;
 }
 
 // Handle memory.
@@ -88,4 +80,6 @@ Skeleton::~Skeleton()
     m_pSpawnPoint = nullptr;
     delete m_pCalculateMove;
     m_pCalculateMove = nullptr;
+    delete m_pHealthManager;
+    m_pHealthManager = nullptr;
 }

@@ -1,6 +1,8 @@
 // Player.cpp
 #include "Player.h"
+#include "PlayerGameControls.h"
 #include "World.h"
+#include "HealthManager.h"
 #include "Entities.h"
 #include "Border.h"
 #include "Items.h"
@@ -10,74 +12,110 @@
 #include "BorderManagement.h"
 #include "Wallet.h"
 #include "InventoryManager.h"
+#include "ArmorManager.h"
+#include "Definitions.h"
 #include <conio.h>
 #include <string>
 
-Player::Player(int worldWidth, int worldHeight) :
-    m_directions(Directions::North),
+// Set up player.
+Player::Player() :
     m_player('^'),
-    m_health(80),
-    m_armor(0),
-    m_coolDown(2),
-    m_saveWorldWidth(0),
-    m_saveWorldHeight(0)
+    m_ammunition(0),
+    m_x(0),
+    m_y(0),
+    m_direction(Directions::North)
 {
-    // Step 1. Save world sizes.
-    m_saveWorldWidth = worldWidth;
-    m_saveWorldHeight = worldHeight;
+    // Step 1. Set player's position.
+    m_x = COLUMNS / 2;
+    m_y = ROWS / 2;
 
-    // Step 2. Set player's position.
-    m_x = m_saveWorldWidth / 2;
-    m_y = m_saveWorldHeight / 2;
-
-    // Step 3. Init inventory manager.
+    // Step 2. Init inventory manager.
     m_pInventoryManager = new InventoryManager;
 
-    // Step 4. Init border manager.
-    m_pBorderManagement = new BorderManagement(&m_x, &m_y, m_saveWorldWidth, m_saveWorldHeight);
+    // Step 3. Init border manager.
+    m_pBorderManagement = new BorderManagement(&m_x, &m_y);
 
-    // Step 5. Init wallet.
+    // Step 4. Init wallet.
     m_pWallet = new Wallet;
+
+    // Step 5. Init health management.
+    m_pHealthManager = new HealthManager(PLAYER_HEALTH);
+
+    // Step 6. Init armor management.
+    m_pArmorManager = new ArmorManager;
 }
 
+// Depending on the key pressed, change direction of player.
+void Player::AlterDirection(char key)
+{
+    switch (key)
+    {
+    case m_up:
+        m_direction = Directions::North;
+        m_player = '^';
+        break;
+    case m_left:
+        m_direction = Directions::West;
+        m_player = '<';
+        break;
+    case m_down:
+        m_direction = Directions::South;
+        m_player = 'v';
+        break;
+    case m_right:
+        m_direction = Directions::East;
+        m_player = '>';
+        break;
+    default:
+        break;
+    }
+}
+
+// Referenced in World.cpp.
+void Player::DrawPlayer() const
+{
+    std::cout << m_player;
+}
+
+// Referenced in World.cpp.
 bool Player::UpdatePlayer()
 {
     char input = _getch();
 
     switch (input)
     {
-    case 'w':
+    case m_up:
         if(!m_pBorderManagement->CheckAreaForBorders(input))
             m_y -= 1;
         break;
-    case 'a':
+    case m_left:
         if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_x -= 1;
         break;
-    case 's':
+    case m_down:
         if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_y += 1;
         break;
-    case 'd':
+    case m_right:
         if (!m_pBorderManagement->CheckAreaForBorders(input))
             m_x += 1;
         break;
-    case 'q':
+    case m_quit:
         m_pInventoryManager->ShootWeapon();
         break;
-    case 'r':
-        Reload();
+    case m_reload:
+        m_pInventoryManager->UseUpgrade(AMMUNITION_ID);
         break;
-    case 'i':
+    case m_openInventory:
         m_pInventoryManager->OpenInventory();
         break;
-    case 'f':
-        UseFirstAid();
+    case m_useFirstAid:
+        m_pInventoryManager->UseUpgrade(FIRSTAID_ID);
         break;
-    case 'g':
-        UseArmor();
+    case m_useUpgrade:
+        m_pInventoryManager->UseUpgrade(ARMOR_ID);
         break;
-    case 'e': // Press 'e' any time during the game to exit PROPERLY without leaking memory. I implemented this when I started building to make sure memory was cleaned properly.
+    case m_exitGame: // Press 'e' any time during the game to exit properly without leaking memory. 
         return false;
     default:
         break;
@@ -88,175 +126,92 @@ bool Player::UpdatePlayer()
     return true;
 }
 
+// Referenced in World.cpp.
 void Player::DrawControls() const
 {
-    std::cout << "(q)Shoot " << "(r)Reload " << "(i)Inventory " << "(f)First Aid " << "(G)Use Armor\n";
-    std::cout << "Press (e) to quit.\n";
+    std::cout << (char)m_quit << "=Shoot " << (char)m_reload << "=Reload " << (char)m_openInventory << "=Inventory " << (char)m_useFirstAid << "=FirstAid ";
+    std::cout << (char)m_useUpgrade << "=UseArmor\n";
+    std::cout << "Press " << (char)m_exitGame << " to quit.\n";
 }
 
+// Referenced in World.cpp.
 void Player::DrawStats() const
 {
-    std::cout << "Health: " << m_health << " Armor: " << m_armor << " Money: " << m_pWallet->GetFunds() << "\n";
+    std::cout << "Health: " << m_pHealthManager->GetHealth() << " Armor: " << m_pArmorManager->GetArmor() << " Money: " << m_pWallet->GetFunds() << "\n";
     std::cout << "Equipped Gun: " << m_pInventoryManager->GetWeaponName() << "   Ammo: " << m_pInventoryManager->GetWeaponAmmunition();
 }
 
-/*
-int Player::GetBulletsSize() const
+// Referenced in World.cpp.
+WalletManagementParticipants * Player::GetWallet() const
 {
-    return m_pBulletControl->GetBulletSize();
-}
-*/
-
-bool Player::ArmorDamage(int damage)
-{
-    // Step 1. If armor was 0 to begin with, exit function
-    if (m_armor <= 0)
-        return false;
-
-    // Step 2. If we haven't returned in step 1, apply armor damage.
-    m_armor -= damage;
-    return true;
+    return m_pWallet;
 }
 
+// Referenced in FirstAidStrategy.cpp.
+HealthManager * Player::GetHealthManager() const
+{
+    return m_pHealthManager;
+}
+
+// Referenced in ArmorStrategy.cpp.
+ArmorManager * Player::GetArmorManager() const
+{
+    return m_pArmorManager;
+}
+
+// Referenced in World.cpp.
+int Player::GetX() const
+{
+    return m_x;
+}
+
+// Referenced in World.cpp.
+int Player::GetY() const
+{
+    return m_y;
+}
+
+// Referenced in BulletManager.
+Directions Player::GetDirection() const
+{
+    return m_direction;
+}
+
+// Manage player damage.
 void Player::Damage(int damage)
 {
-    // Step 1. Check if we have armor that can absorb initial damage first.
-    if (ArmorDamage(damage))
+    // Step 1. See if player has armor that can absorb damage first.
+    if (m_pArmorManager->DamageArmor(damage))
         return;
 
-    // Step 2. Assign damage to health.
-    int remainder = m_health - damage;
-    if (remainder <= 0)
-    {
-        m_health = 0;
+    // Step 2. Damage health if no armor was available in Step 1.
+    if (m_pHealthManager->DamageHealth(damage))
         World::Instance()->TerminateGame();
-        return;
-    }
-       
-    m_health -= damage;
 }
 
-/*
-bool Player::DrawBullets(int x, int y)
+// Referenced in World.cpp.
+void Player::ResetPlayerPosition()
 {
-    if (m_pBulletControl->DrawBullets(x, y))
-        return true;
-    
-    return false;
+    m_x = COLUMNS / 2;
+    m_y = ROWS / 2;
 }
 
-void Player::EnemyCollision()
-{
-    m_pBulletControl->EnemyCollision();
-}
-
-void Player::UpdateBullets()
-{
-    m_pBulletControl->UpdateBullets();
-}
-*/
-
-bool Player::ApplyUpgrade(int typeOfUpgrade, int index)
-{
-    switch (typeOfUpgrade)
-    {
-    case 3: // Firstaid.
-        // m_health += m_pInventory.at(index)->GetUpgradeAmount();
-        return true;
-    case 4: // Armor.
-        // m_armor += m_pInventory.at(index)->GetUpgradeAmount();
-        return true;
-    case 5: // Ammo.
-        // m_pCurrentWeapon->Reload(m_pInventory.at(index)->GetUpgradeAmount());
-        return true;
-    default:
-        break;
-    }
-
-    return false;
-}
-
-bool Player::UseUpgrade(int typeOfUpgrade)
-{
-    // Step 1. Get inventory size.
-    // m_playerInventorySize = m_pInventory.size();
-
-    /*
-    // Step 2. Cycle through entire inventory and check if player HAS the upgrade they request.
-    for (int i = 0; i < m_playerInventorySize; ++i)
-    {
-        if (m_pInventory.at(i)->GetId() == typeOfUpgrade)
-        {
-            // Step 3. If step 2 passed, apply the the upgrade. In not, go to next item in inventory.
-            if (!ApplyUpgrade(typeOfUpgrade, i))
-                continue;
-
-            // Step 4. Delete item from vector ensuring no memory leaks.
-            Items *pItem = m_pInventory.at(i);
-            delete pItem;
-            pItem = nullptr;
-
-            // Step 5. Erase item from player inventory.
-            m_pInventory.erase(m_pInventory.begin() + i);
-            return true;
-        }
-    }
-    */
-
-    return false;
-}
-
-void Player::UseArmor()
-{
-    if (!UseUpgrade(4))
-        std::cout << "\nNo armor in inventory!\n";
-}
-
-void Player::UseFirstAid()
-{
-    if (!UseUpgrade(3))
-        std::cout << "\nNo health in inventory!\n";
-}
-
-void Player::Reload()
-{
-    if (!UseUpgrade(5))
-        std::cout << "\nNo ammo in inventory!\n";
-}
-
-void Player::AlterDirection(char key)
-{
-    switch (key)
-    {
-    case 'w':
-        m_directions = Directions::North;
-        m_player = '^';
-        break;
-    case 'a':
-        m_directions = Directions::West;
-        m_player = '<';
-        break;
-    case 's':
-        m_directions = Directions::South;
-        m_player = 'v';
-        break;
-    case 'd':
-        m_directions = Directions::East;
-        m_player = '>';
-        break;
-    default:
-        break;
-    }
-}
-
+// Overriden function found in Participants.h.
 int Player::GetPlayerMoney() const
 {
     return m_pWallet->GetFunds();
 }
 
+// Overriden function found in Participants.h.
 void Player::SetPlayerMoney(int value)
 {
-    m_pWallet->ReceiveFunds(value);
+    m_pWallet->ReceiveChange(value);
+}
+
+// Overriden function found in Participants.h.
+void Player::DeliverPlayerItem(Items * pItem)
+{
+    m_pInventoryManager->AddToInventory(pItem);
 }
 
 Player::~Player()
@@ -269,4 +224,10 @@ Player::~Player()
 
     delete m_pWallet;
     m_pWallet = nullptr;
+
+    delete m_pHealthManager;
+    m_pHealthManager = nullptr;
+
+    delete m_pArmorManager;
+    m_pArmorManager = nullptr;
 }

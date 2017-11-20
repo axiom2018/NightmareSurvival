@@ -4,8 +4,7 @@
 Rocket::Rocket() :
     m_bullet('*'),
     m_x(0),
-    m_y(0),
-    m_damage(30)
+    m_y(0)
 {
 
 }
@@ -27,6 +26,6 @@ void Rocket::Update()
         m_x += 1;
         break;
     default:
-        std::cout << "Error! [Rocket.cpp]\n";
+        return;
     }
 }

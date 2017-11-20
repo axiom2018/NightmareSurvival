@@ -6,81 +6,13 @@
 #include "PistolBullet.h"
 #include "ShotgunBullet.h"
 #include "Rocket.h"
+#include "Definitions.h"
 #include <vector>
 
-ObjectPool *ObjectPool::m_pInstance = 0;
+// Initialize singleton to nullptr.
+ObjectPool *ObjectPool::m_pInstance = nullptr;
 
-void ObjectPool::EmptyVector(std::vector<Entities*> pVec)
-{
-    // Step 1. Check if the vector is already empty, if so, return.
-    if (pVec.empty())
-        return;
-
-    // Step 2. If Step 1 didn't return early, loop through vector and delete everything.
-    for (auto it = std::begin(pVec); it != std::end(pVec); ++it)
-    {
-        delete (*it);
-        *it = nullptr;
-    }
-
-    pVec.clear();
-}
-
-Entities * ObjectPool::InsertBulletInVec(std::vector<Entities*> *pVector, int bulletType)
-{
-    for (int i = 0; i < k_maxEmptyRequests; ++i)
-    {
-        pVector->insert(pVector->begin() + i, Bullets::GetBullet(bulletType));
-        return pVector->at(i);
-    }
-
-    return nullptr;
-}
-
-bool ObjectPool::IsListEmpty(std::list<class Entities*> pList) const
-{
-    if (pList.empty())
-        return true; 
-
-    return false;
-}
-
-Entities * ObjectPool::GetPistolBullet(int bulletType)
-{
-    if (IsListEmpty(m_pPistolBullets))
-    {
-        return InsertBulletInVec(&m_pEmptyRequestsPistol, bulletType);
-    }
-
-    Entities *pPistolBullet = m_pPistolBullets.front();
-    m_pPistolBullets.pop_front();
-    return pPistolBullet;
-}
-
-Entities * ObjectPool::GetShotgunBullet(int bulletType)
-{
-    if (IsListEmpty(m_pShotgunBullets))
-    {
-        return InsertBulletInVec(&m_pEmptyRequestsShotgun, bulletType);
-    }
-    
-    Entities *pShotgunBullet = m_pShotgunBullets.front(); // Crash here.
-    m_pShotgunBullets.pop_front();
-    return pShotgunBullet;
-}
-
-Entities * ObjectPool::GetRocket(int bulletType)
-{
-    if (IsListEmpty(m_pRockets))
-    {
-        return InsertBulletInVec(&m_pEmptyRequestsPistol, bulletType);
-    }
-
-    Entities *pRocket = m_pRockets.front();
-    m_pRockets.pop_front();
-    return pRocket;
-}
-
+// Singleton management function.
 ObjectPool * ObjectPool::GetInstance()
 {
     if (m_pInstance == 0)
@@ -91,50 +23,76 @@ ObjectPool * ObjectPool::GetInstance()
     return m_pInstance;
 }
 
+// Find the bullet we want by the type we pass as an argument.
+class Entities * ObjectPool::GetBulletByType(int type)
+{
+    // Step 1. Get size ready for loop.
+    int size = m_pBullets.size();
+
+    // Step 2. Begin loop.
+    for (int i = 0; i < size; ++i)
+    {
+        // Step 3. Check if bullet is correct type.
+        if (m_pBullets.at(i)->GetId() == type)
+        {
+            // (Optional Step) Save the bullet. 
+            Entities *pBullet = m_pBullets.at(i);
+            // (Optional Step) Erase the bullet from the vector.
+            m_pBullets.erase(m_pBullets.begin() + i); 
+            // (Optional Step) Return bullet.
+            return pBullet;
+        }
+    }
+
+    // (Optional Step) Return nullptr if the vector has no bullets of the type requested.
+    return nullptr;
+}
+
+// Bullet is requested by the BulletManager.cpp file.
 Entities * ObjectPool::GetBullet(int bulletType)
 {
-    // Step 1. Determine the bullet type.
-    switch (bulletType)
+    // Step 1. If bullet reserve is empty, get fresh one.
+    if (m_pBullets.empty())
     {
-    case 0:
-        return GetPistolBullet(bulletType);
-    case 1:
-        return GetShotgunBullet(bulletType);
-    case 2:
-        return GetRocket(bulletType);
-    default:
-        break;
+        return Bullets::GetBullet(bulletType);
+    }
+
+    else
+    {
+        // Step 2. We have a bullet(s) in the reserve, get one.
+        Entities *pBullet = GetBulletByType(bulletType);
+
+        if (pBullet)
+        {
+            // (Optional Step) GetBulletByType() has not returned nullptr. This is a valid bullet. Return it.
+            return pBullet;
+        }
+
+        else
+        {
+            // (Optional Step) GetBulletByType() has returned nullptr. The bullet wasn't find. Get the type requested.
+            return Bullets::GetBullet(bulletType);
+        }
+
     }
 
     return nullptr;
 }
 
+// Bullet will be returned by the BulletManager.cpp file.
 void ObjectPool::ReturnBullet(Entities *pBullet)
 {
-    switch (pBullet->GetId())
-    {
-    case 0:
-        // Return pistol bullet.
-        m_pPistolBullets.push_back(pBullet);
-        break;
-    case 1:
-        // Return shotgun bullet.
-        m_pShotgunBullets.push_back(pBullet);
-        break;
-    case 2:
-        // Return rocket.
-        m_pRockets.push_back(pBullet);
-        break;
-    default:
-        std::cout << "Error! [ObjectPool.cpp]\n";
-    }
+    m_pBullets.push_back(pBullet);
 }
 
 void ObjectPool::DeletePool()
 {
-    EmptyVector(m_pEmptyRequestsPistol);
-    EmptyVector(m_pEmptyRequestsShotgun);
-    EmptyVector(m_pEmptyRequestsRocket);
+    for (std::vector<Entities*>::iterator it = m_pBullets.begin(); it != m_pBullets.end(); ++it)
+    {
+        delete (*it);
+    }
+
+    m_pBullets.clear();
 
     delete m_pInstance;
     m_pInstance = nullptr;

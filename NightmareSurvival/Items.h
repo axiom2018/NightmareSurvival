@@ -8,6 +8,7 @@ public:
     virtual void Draw() const {};
     virtual int GetId() = 0;
     virtual int GetAmmo() { return 0; }
+    virtual void SetAmmo(int ammo) {}
     virtual void Reload(int magazine) {}
     virtual void DecreaseAmmo() {};
     virtual std::string ItemName() const = 0;

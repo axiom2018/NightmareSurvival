@@ -31,11 +31,11 @@ bool WaveManager::IsGameOver() const
 
 bool WaveManager::NextWave()
 {
-    // Step 1. Check for game over.
+    // Step 2. Check for game over.
     if (IsGameOver())
         return true;
 
-    // Step 2. If step 1 is false, proceed to next level.
+    // Step 1. If step 1 is false, proceed to next level.
     ++m_currentWave;
     m_curWave = static_cast<Waves>(m_currentWave);
 

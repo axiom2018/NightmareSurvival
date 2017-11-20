@@ -4,13 +4,15 @@
 #include "Directions.h"
 #include <vector>
 
+// Almost everything in game is an entity.
+
 class Entities
 {
 private:
     Directions direction;
 public:
     virtual void Draw() const {};
-    virtual char GetChar() { return 0; };
+    virtual char GetChar() const { return 0; };
     virtual ~Entities() {}
 
     virtual void Init() {}

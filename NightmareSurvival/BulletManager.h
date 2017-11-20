@@ -1,6 +1,5 @@
 // BulletManager.h
 #pragma once
-#include "WeaponAlgorithms.h"
 #include "Directions.h"
 #include <vector>
 
@@ -9,28 +8,24 @@
 class BulletManager
 {
 private:
-    // Primary variables.
     std::vector<class Entities*> m_pBullets; 
-    std::vector<class Enemies*> m_pSaveEnemies; // No need to save enemies, get them directly.
-    int m_x; // Save player X.
-    int m_y; // Save player Y.
-    int m_bulletX; // Save bullet position.
-    int m_bulletY; // Save bullet position.
-    int m_bulletSize; // Help bullet control.
-    // int m_nextBulletPos; // Wtf does this shit even DO?
-    int m_width; // 
-    int m_height; //
-    int m_index; // 
-    int m_size; //
-    int m_amountOfEnemies; //
-    Directions m_direction; // 
+    std::vector<class Enemies*> m_pSaveEnemies;
+    int m_x; 
+    int m_y; 
+    int m_bulletX; 
+    int m_bulletY; 
+    int m_bulletSize; 
+    int m_index;
+    int m_size; 
+    int m_amountOfEnemies;
+    Directions m_direction;
 
     // Bullet creation helper functions.
     void SetData();
     void AlterData();
 
     // Updating bullets helper functions.
-    bool CheckBulletBize();
+    bool CheckBulletSize();
     void ReturnBullet(int *pBulletIndex);
     void SouthBulletUpdate(int *pBulletIndex);
     void EastBulletUpdate(int *pBulletIndex);
@@ -44,11 +39,11 @@ private:
     void DetermineBulletDirection(int bulletIndex);
 public:
     BulletManager();
-    void RequestBullet(int weaponId);
-    bool DrawBullets(int x, int y);
-    virtual void UpdateBullets();
-    virtual int GetBulletSize() const { return m_pBullets.size(); }
-    virtual bool EnemyCollision();
+    void RequestBullet(int weaponId); 
+    bool DrawBullets(int x, int y); 
+    void UpdateBullets(); 
+    bool EnemyCollision();
+    void ReturnAllBulletsOnGameBoard();
     ~BulletManager();
 };
 

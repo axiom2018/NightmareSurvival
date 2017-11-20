@@ -4,8 +4,6 @@
 #include "Armor.h"
 #include "Ammo.h"
 
-// Factory pattern for game upgrades.
-
 Items * UpgradeFactory::GetItem(int choice)
 {
     switch (choice)

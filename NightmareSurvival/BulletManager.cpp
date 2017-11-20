@@ -7,24 +7,18 @@
 #include "Player.h"
 #include "Directions.h"
 #include "Enemies.h"
+#include "Definitions.h"
 #include <string>
 
-// Factory pattern for game upgrades.
-
+// Save world coordinates in constructor.
 BulletManager::BulletManager() :
     m_index(-1),
     m_amountOfEnemies(0)
 {
-    m_width = World::Instance()->GetWidth();
-    m_height = World::Instance()->GetHeight();
+
 }
 
-BulletManager::~BulletManager()
-{
-    m_pBullets.clear();
-}
-
-bool BulletManager::CheckBulletBize()
+bool BulletManager::CheckBulletSize()
 {
     if (m_pBullets.empty())
         return true;
@@ -32,6 +26,7 @@ bool BulletManager::CheckBulletBize()
     return false;
 }
 
+// Start the bullet position and direction exactly as the players.
 void BulletManager::SetData()
 {
     m_x = World::Instance()->GetPlayer()->GetX();
@@ -40,6 +35,7 @@ void BulletManager::SetData()
     m_direction = World::Instance()->GetPlayer()->GetDirection(); 
 }
 
+// Based on the direction, alter the position of the bullet, and set the direction.
 void BulletManager::AlterData()
 {
     switch (m_direction)
@@ -61,35 +57,11 @@ void BulletManager::AlterData()
         m_pBullets.at(m_index)->SetDirection(Directions::East);
         break;
     default:
-        std::cout << "Error! AlterData() [BulletManager.cpp]\n";
+        return;
     }
 
     m_pBullets.at(m_index)->SetX(m_y);
     m_pBullets.at(m_index)->SetY(m_x);
-}
-
-void BulletManager::RequestBullet(int weaponId)
-{
-    switch (weaponId)
-    {
-    case 0: // Pistol bullet.
-        m_pBullets.push_back(ObjectPool::GetInstance()->GetBullet(weaponId)); 
-        ++m_index;
-        break;
-    case 1: // Shotgun bullet.
-        m_pBullets.push_back(ObjectPool::GetInstance()->GetBullet(weaponId)); 
-        ++m_index;
-        break;
-    case 2: // Rocket.
-        m_pBullets.push_back(ObjectPool::GetInstance()->GetBullet(weaponId));
-        ++m_index;
-        break;
-    default:
-        std::cout << "Error! BulletManager(int weaponId) [BulletManager.cpp]\n";
-    }
-
-    SetData();
-    AlterData();
 }
 
 void BulletManager::CheckForEnemyCollision(int *pBulletIndex)
@@ -122,89 +94,21 @@ void BulletManager::CheckForEnemyCollision(int *pBulletIndex)
     }
 }
 
+// Set bullet position.
 void BulletManager::SetBulletPos(int bulletIndex)
 {
     m_bulletY = m_pBullets.at(bulletIndex)->GetY();
     m_bulletX = m_pBullets.at(bulletIndex)->GetX();
 }
 
+// Set bullet direction.
 void BulletManager::DetermineBulletDirection(int bulletIndex)
 {
-    /* The next bullet position system is out right now.
-
-
-    // Step 1. Bullet is traveling in one of the 4 directions. Begin algorithm by checking which.
-    switch (m_pBullets.at(bulletIndex)->GetDirection())
-    {
-    case Directions::North:
-        m_nextBulletPos = m_pBullets.at(bulletIndex)->GetX() - 1;
-        break;
-    case Directions::West:
-        m_nextBulletPos = m_pBullets.at(bulletIndex)->GetY() - 1;
-        break;
-    case Directions::East:
-        m_nextBulletPos = m_pBullets.at(bulletIndex)->GetY() + 1;
-        break;
-    case Directions::South:
-        m_nextBulletPos = m_pBullets.at(bulletIndex)->GetX();
-        break;
-    default:
-        std::cout << "Error! DetermineBulletDirection(int bulletIndex) [BulletManager.cpp]\n";
-    }
-    */
-
     // Step 2. Set the bullet position.
     SetBulletPos(bulletIndex);
 }
 
-bool BulletManager::EnemyCollision()
-{
-    // Step 1. Grab all enemies and size of enemies.
-    m_pSaveEnemies = World::Instance()->GetEnemyManager()->GetEnemies(); 
-    m_amountOfEnemies = m_pSaveEnemies.size();
-
-    int i = 0;
-
-    // Step 2. Check bullet size.
-    if (CheckBulletBize())
-        return false;
-
-    // Step 3. If step 2 doesn't return, get size of bullets.
-    m_bulletSize = m_pBullets.size();
-
-    // Step 4. Loop.
-    for (i; i < m_bulletSize; ++i)
-    {
-        DetermineBulletDirection(i);
-        CheckForEnemyCollision(&i);
-    }
-
-    return false;
-}
-
-bool BulletManager::DrawBullets(int x, int y)
-{
-    /// Do EC before or after we draw bullets?. Before sounds reasonable.
-    EnemyCollision();
-
-    // Step 1. Check bullet size.
-    if (CheckBulletBize())
-        return false;
-
-    // Step 2. Draw bullets if necessary.
-    for (std::vector<Entities*>::iterator iter = m_pBullets.begin(); iter != m_pBullets.end(); ++iter)
-    {
-        if (x == (*iter)->GetX() &&
-            y == (*iter)->GetY())
-        {
-            (*iter)->Draw();
-            return true;
-        }
-    }
-
-    return false;
-}
-
+// When the bullet has hit an enemy, return it to the object pool.
 void BulletManager::ReturnBullet(int *pBulletIndex)
 {
     ObjectPool::GetInstance()->ReturnBullet(m_pBullets.at(*pBulletIndex));
@@ -217,7 +121,7 @@ void BulletManager::ReturnBullet(int *pBulletIndex)
 void BulletManager::SouthBulletUpdate(int *pBulletIndex)
 {
     // Step 1. Save the desired position of the bullet in a variable and save wall limit.
-    int limit = m_height - 2;
+    int limit = ROWS - 2;
     int temp = m_pBullets.at(*pBulletIndex)->GetX();
 
     // Step 2. If bullet collides with wall, return it to ObjectPool.
@@ -235,7 +139,7 @@ void BulletManager::EastBulletUpdate(int *pBulletIndex)
 {
     // Step 1. Save the desired position of the bullet in a variable and save wall limit.
     int temp = m_pBullets.at(*pBulletIndex)->GetY() + 1;
-    int wall = m_width - 1;
+    int wall = COLUMNS - 1;
 
     // Step 2. If bullet collides with wall, return it to ObjectPool.
     if (temp >= wall)
@@ -293,14 +197,80 @@ void BulletManager::BulletUpdate(int *pBulletIndex)
         SouthBulletUpdate(pBulletIndex);
         break;
     default:
-        std::cout << "Error! [BulletManager.cpp]\n";
+        return;
+    }
+}
+
+// Control how bullets interact when hitting enemies.
+bool BulletManager::EnemyCollision()
+{
+    // Step 1. Grab all enemies and size of enemies.
+    m_pSaveEnemies = World::Instance()->GetEnemyManager()->GetEnemies();
+
+    // Step 2. Get the size of the enemies.
+    m_amountOfEnemies = m_pSaveEnemies.size();
+
+    // Step 3. Check bullet size.
+    if (CheckBulletSize())
+        return false;
+
+    // Step 4. If step 2 doesn't return, get size of bullets.
+    m_bulletSize = m_pBullets.size();
+
+    // Step 5. Loop.
+    for (int i = 0; i < m_bulletSize; ++i)
+    {
+        DetermineBulletDirection(i);
+        CheckForEnemyCollision(&i);
+    }
+
+    return false;
+}
+
+// Referenced in World.cpp. Will remove all traveling bullets that hit nothing after the player cleared out enemies.
+void BulletManager::ReturnAllBulletsOnGameBoard()
+{
+    // Step 1. Check if there are bullets in the vector before continuing.
+    if (CheckBulletSize())
+        return;
+    /*
+    // Step 2. Go through the entire vector and send the bullets back to object pool.
+    while (!CheckBulletSize())
+    {
+        // (Optional Step) Continue with operations until vector is empty.
+        ObjectPool::GetInstance()->ReturnBullet(m_pBullets.front());
+        // (Optional Step) Erase bullet from vector.
+        m_pBullets.erase(m_pBullets.begin());
+        // (Optional Step) Decrease class member variables as each bullet is returned.
+        --m_index;
+        --m_size;
+    }
+    */
+
+    // Step 2. Get size for loop.
+    int size = m_pBullets.size();
+
+    // Step 3. Loop.
+    for (int i = 0; i < size; ++i)
+    {
+        // (Optional Step) Save bullet in pointer.
+        Entities *pBullet = m_pBullets.at(i);
+        // (Optional Step) Erase bullet from vector.
+        m_pBullets.erase(m_pBullets.begin() + i);
+        // (Optional Step) Delete bullet.
+        delete pBullet;
+        // (Optional Step) Set old pointer to nullptr.
+        pBullet = nullptr;
+        // (Optional Step) Decrement variables.
+        --m_index;
+        --m_size;
     }
 }
 
 void BulletManager::UpdateBullets()
 {
     // Step 1. If the vector is empty, return. Nothing to update.
-    if (CheckBulletBize())
+    if (CheckBulletSize())
         return;
 
     // Step 2. Get amount of bullets.
@@ -313,4 +283,46 @@ void BulletManager::UpdateBullets()
         // Step 4. Decide direction on bullet.
         BulletUpdate(&i);
     }
+}
+
+bool BulletManager::DrawBullets(int x, int y)
+{
+    // Do EC before or after we draw bullets?. Before sounds reasonable.
+    EnemyCollision();
+
+    // Step 1. Check bullet size.
+    if (CheckBulletSize())
+        return false;
+
+    // Step 2. Draw bullets if necessary.
+    for (std::vector<Entities*>::iterator iter = m_pBullets.begin(); iter != m_pBullets.end(); ++iter)
+    {
+        if (x == (*iter)->GetX() &&
+            y == (*iter)->GetY())
+        {
+            (*iter)->Draw();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Get bullet from object pool.
+void BulletManager::RequestBullet(int weaponId)
+{
+    // Step 1. Get correct type of bullet to push back in vector.
+    m_pBullets.push_back(ObjectPool::GetInstance()->GetBullet(weaponId));
+
+    // Step 2. Increment index.
+    ++m_index;
+
+    // Step 2. Edit bullet data.
+    SetData();
+    AlterData();
+}
+
+BulletManager::~BulletManager()
+{
+    m_pBullets.clear();
 }

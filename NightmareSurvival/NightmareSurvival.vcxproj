@@ -146,12 +146,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AmmoStrategy.cpp" />
+    <ClCompile Include="ArmorManager.cpp" />
+    <ClCompile Include="ArmorStrategy.cpp" />
     <ClCompile Include="BorderManagement.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="CheckArea.cpp" />
     <ClCompile Include="CurrentWave.cpp" />
-    <ClCompile Include="CurrentWeaponManager.cpp" />
+    <ClCompile Include="CursorManager.cpp" />
+    <ClCompile Include="FirstAidStrategy.cpp" />
+    <ClCompile Include="HealthManager.cpp" />
+    <ClCompile Include="ManageEnemyPosition.cpp" />
+    <ClCompile Include="UpgradeManager.cpp" />
+    <ClCompile Include="WeaponManager.cpp" />
     <ClCompile Include="CycleWeapons.cpp" />
     <ClCompile Include="Demon.cpp" />
     <ClCompile Include="Enemies.cpp" />
@@ -159,7 +168,7 @@
     <ClCompile Include="FinalWave.cpp" />
     <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="ItemsFactory.cpp" />
-    <ClCompile Include="Mediator.cpp" />
+    <ClCompile Include="VendorMediator.cpp" />
     <ClCompile Include="RandomWave.cpp" />
     <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="CalculateMove.cpp" />
@@ -184,23 +193,36 @@
   <ItemGroup>
     <ClInclude Include="Altitudes.h" />
     <ClInclude Include="Ammo.h" />
+    <ClInclude Include="AmmoStrategy.h" />
     <ClInclude Include="Armor.h" />
+    <ClInclude Include="ArmorManager.h" />
+    <ClInclude Include="ArmorStrategy.h" />
     <ClInclude Include="BorderManagement.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="CheckArea.h" />
+    <ClInclude Include="Coordinates.h" />
     <ClInclude Include="CurrentWave.h" />
-    <ClInclude Include="CurrentWeaponManager.h" />
+    <ClInclude Include="CursorGUIControls.h" />
+    <ClInclude Include="CursorManager.h" />
+    <ClInclude Include="Definitions.h" />
+    <ClInclude Include="FirstAidStrategy.h" />
+    <ClInclude Include="HealthManager.h" />
+    <ClInclude Include="ManageEnemyPosition.h" />
+    <ClInclude Include="PlayerGameControls.h" />
+    <ClInclude Include="UpgradeManager.h" />
+    <ClInclude Include="UpgradeStrategy.h" />
+    <ClInclude Include="WeaponManager.h" />
     <ClInclude Include="CycleWeapons.h" />
     <ClInclude Include="Demon.h" />
     <ClInclude Include="Directions.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="EnemyAlgorithms.h" />
-    <ClInclude Include="EnemyDamageRates.h" />
     <ClInclude Include="EnemyManagement.h" />
     <ClInclude Include="FinalWave.h" />
     <ClInclude Include="InventoryManager.h" />
-    <ClInclude Include="Mediator.h" />
+    <ClInclude Include="VendorMediator.h" />
     <ClInclude Include="Participants.h" />
     <ClInclude Include="PlayerAlgorithms.h" />
     <ClInclude Include="RandomWave.h" />
@@ -231,7 +253,6 @@
     <ClInclude Include="WaveManager.h" />
     <ClInclude Include="WaveManagerRequestEnemyStrategy.h" />
     <ClInclude Include="Waves.h" />
-    <ClInclude Include="WeaponAlgorithms.h" />
     <ClInclude Include="WeaponsFactory.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>

@@ -4,8 +4,7 @@
 PistolBullet::PistolBullet() :
     m_bullet('+'),
     m_x(0),
-    m_y(0),
-    m_damage(2)
+    m_y(0)
 {
 
 }
@@ -27,6 +26,6 @@ void PistolBullet::Update()
         m_x += 1;
         break;
     default:
-        std::cout << "Error! [PistolBullet.cpp]\n";
+        return;
     }
 }

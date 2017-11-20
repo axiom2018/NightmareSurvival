@@ -7,18 +7,17 @@
 class InventoryManager
 {
     std::vector<class Items*> m_pInventory;
-    class WeaponsFactory *m_pWF;
-    class CycleWeapons *m_pCycleInventory;
-    class Items *m_pCurrentWeapon;
-    class CurrentWeaponManager *m_pCurrentWeaponManager;
+    class WeaponManager *m_pWeaponManager;
+    class UpgradeManager *m_pUpgradeManager;
 public:
     InventoryManager();
-    int GetInventorySize() const;
+    class WeaponManager * GetWeaponManager() const;
     std::string GetWeaponName() const;
-    int GetWeaponAmmunition() const;
+    int GetWeaponAmmunition() const; 
     void AddToInventory(class Items *pItem);
-    void OpenInventory();
-    void SetPlayerCurrentWeapon(class Items *pWeapon);
-    void ShootWeapon();
+    void OpenInventory(); 
+    void SetPlayerCurrentWeapon(class Items *pWeapon); 
+    void ShootWeapon(); 
+    void UseUpgrade(int itemID);
     ~InventoryManager();
 };

@@ -4,18 +4,17 @@
 #include "ShotgunBullet.h"
 #include "Rocket.h"
 #include "Entities.h"
-
-#define MAX_BULLETS 3
+#include "Definitions.h"
 
 Entities * Bullets::GetBullet(int type)
 {
     switch (type)
     {
-    case 0:
+    case PISTOL_BULLET:
         return new PistolBullet;
-    case 1:
+    case SHOTGUN_BULLET:
         return new ShotgunBullet;
-    case 2:
+    case ROCKET:
         return new Rocket;
     default:
         break;

@@ -8,7 +8,7 @@ class EnemyAlgorithms
 {
 public:
     EnemyAlgorithms() {}
-    virtual void SpawnPoint(int *y, int *x, int width, int height) {}
+    virtual void SpawnPoint(int *y, int *x) {}
     virtual void CalculateEnemyMove(int *y, int *x) {}
     virtual ~EnemyAlgorithms() {}
 };

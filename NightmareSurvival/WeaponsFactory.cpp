@@ -4,8 +4,6 @@
 #include "Shotgun.h"
 #include "RocketLauncher.h"
 
-// Factory pattern for game weaponry.
-
 Items *WeaponsFactory::GetItem(int choice)
 {
     switch (choice)

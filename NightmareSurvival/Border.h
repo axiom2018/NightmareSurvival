@@ -9,5 +9,5 @@ class Border : public Entities
     char m_border = '#';
 public:
     virtual void Draw() const override;
-    virtual char GetChar() override;
+    virtual char GetChar() const override;
 };

@@ -20,7 +20,7 @@ void WalletMediator::AddFundsToPlayersWallet(int value)
         if (pParticipants->GetType() == WalletManagementParticipantTypes::Wallet)
         {
             // Step 3. Once wallet is found, add funds.
-            pParticipants->ReceiveFunds(value);
+            pParticipants->AddFunds(value);
             return;
         }
     }

@@ -1,0 +1,49 @@
+﻿  AmmoStrategy.cpp
+  ArmorManager.cpp
+  ArmorStrategy.cpp
+  BorderManagement.cpp
+  Boss.cpp
+  BulletManager.cpp
+  Bullets.cpp
+  CheckArea.cpp
+  CurrentWave.cpp
+  CursorManager.cpp
+  FirstAidStrategy.cpp
+  HealthManager.cpp
+  ManageEnemyPosition.cpp
+  UpgradeManager.cpp
+  WeaponManager.cpp
+  CycleWeapons.cpp
+  Demon.cpp
+  Enemies.cpp
+  EnemyManagement.cpp
+  FinalWave.cpp
+  Compiling...
+  InventoryManager.cpp
+  ItemsFactory.cpp
+  VendorMediator.cpp
+  RandomWave.cpp
+  Spawn.cpp
+  CalculateMove.cpp
+  Main.cpp
+  ObjectPool.cpp
+  PistolBullet.cpp
+  Player.cpp
+  Rocket.cpp
+  ShotgunBullet.cpp
+  Skeleton.cpp
+  Border.cpp
+  Dots.cpp
+  UpgradeFactory.cpp
+  Vampire.cpp
+  Vendor.cpp
+  Wallet.cpp
+  WalletMediator.cpp
+  Compiling...
+  WaveManager.cpp
+  WeaponsFactory.cpp
+  World.cpp
+  Generating code
+  Finished generating code
+  All 1189 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  NightmareSurvival.vcxproj -> C:\Users\Axiom\Desktop\NightmareSurvival(Final)\Release\NightmareSurvival.exe

@@ -1,7 +1,7 @@
 // Pistol.h
 #pragma once
 #include "Items.h"
-#define PISTOL_ID 0
+#include "Definitions.h"
 
 class Pistol : public Items
 {
@@ -13,6 +13,7 @@ public:
     Pistol() : m_ammo(15) {};
     virtual int GetId() override { return m_id; }
     virtual int GetAmmo() override { return m_ammo; }
+    virtual void SetAmmo(int ammo) override { m_ammo = ammo; }
     virtual void Reload(int magazine) override { m_ammo += magazine; }
     virtual void DecreaseAmmo() override { --m_ammo; }
     virtual std::string ItemName() const override { return m_gunName; }

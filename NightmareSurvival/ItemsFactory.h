@@ -11,5 +11,4 @@ class ItemsFactory
 public:
     virtual Items *GetItem(int choice) = 0;
     static bool WeaponIDCheck(int weaponID);
-    static bool UpgradeIDCheck(int upgradeID);
 };

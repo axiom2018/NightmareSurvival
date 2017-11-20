@@ -6,16 +6,16 @@
 #include "Items.h"
 #include "Pistol.h"
 #include "World.h"
-#include "Mediator.h"
+#include "VendorMediator.h"
+#include "CursorManager.h"
+#include "CursorGUIControls.h"
+#include "Definitions.h"
 #include <conio.h>
 #include <string>
 
 
-Vendor::Vendor(Mediator *pMediator) :
+Vendor::Vendor(VendorMediator *pMediator) :
     m_displayShop(true),
-    m_currentChosenIndex(0),
-    m_cursor('S'),
-    m_marker(' '),
     m_upgradeTracker(0),
     m_weaponTracker(0)
 {
@@ -25,6 +25,8 @@ Vendor::Vendor(Mediator *pMediator) :
     m_pWF = new WeaponsFactory;
     // Step 3. Init upgrade factory.
     m_pUF = new UpgradeFactory;
+    // Step 3. Init cursor manager.
+    m_pCursorManager = new CursorManager;
     // Step 4. Set variables.
     m_max = 0;
     m_price = 225;
@@ -39,11 +41,6 @@ void Vendor::DeleteItemPointer(Items *pItem)
     pItem = nullptr;
 }
 
-void Vendor::OpenVendorShop()
-{
-    OpenVendorsShop();
-}
-
 // Collects all upgrades from upgrade factory.
 void Vendor::GetAllUpgrades()
 {    
@@ -55,7 +52,7 @@ void Vendor::GetAllUpgrades()
 
         if (m_pItem)
         {
-            m_pProducts.push_back(std::make_pair(m_pItem, k_upgradePrice));
+            m_pProducts.push_back(std::make_pair(m_pItem, UNIVERSAL_UPGRADE_PRICE));
             ++m_max;
             ++m_upgradeTracker;
             continue;
@@ -87,75 +84,6 @@ void Vendor::GetAllWeapons()
         DeleteItemPointer(m_pItem);
         break;
     }
-}
-
-// Helps the player use the Weapon/Upgrade GUI with certain keys.
-void Vendor::NormalCursorMovement(int *pIndex, char direction)
-{
-    switch (direction)
-    {
-    case 'w':
-        *pIndex -= 1;
-        break;
-    case 's':
-        *pIndex += 1;
-        break;
-    default:
-        std::cout << "Invalid direction!\n";
-        break;
-    }
-}
-
-// Move the cursor down. Has protection if player moves the cursor up despite it might being at the bottom.
-void Vendor::MoveCursorDown(int *pIndex, char direction)
-{
-    switch (direction)
-    {
-    case 'w':
-        *pIndex -= 1;
-        break;
-    case 's':
-        *pIndex = 0;
-        break;
-    default:
-        std::cout << "Invalid direction! [MoveCursorDown]";
-        break;
-    }
-}
-
-// Move the cursor up. Has protection if player moves the cursor up despite it might being at the top.
-void Vendor::MoveCursorUp(int *pIndex, char direction)
-{
-    switch (direction)
-    {
-    case 'w':
-        *pIndex = m_productSize - 1;
-        break;
-    case 's':
-        *pIndex += 1;
-        break;
-    default:
-        std::cout << "Invalid direction! [MoveCursorTop]";
-        break;
-    }
-}
-
-// Depending on the position of the cursor, we move up or down.
-void Vendor::Selection(int *pIndex, char direction)
-{
-    if (*pIndex == 0)
-    {
-        MoveCursorUp(pIndex, direction);
-        return;
-    }
-
-    else if (*pIndex == m_productSize - 1)
-    {
-        MoveCursorDown(pIndex, direction);
-        return;
-    }
-
-    NormalCursorMovement(pIndex, direction);
 }
 
 bool Vendor::Transaction(int listedIndex)
@@ -195,49 +123,30 @@ void Vendor::AddItem(int listedIndex)
 // Allow player to purchase item if they have enough currency.
 void Vendor::PurchaseItem()
 {
-    if (Transaction(m_currentChosenIndex))
+    // Step 1. Get index.
+    int index = m_pCursorManager->GetChosenIndex();
+
+    // Step 2. Proceed with transaction.
+    if (Transaction(index))
     {
-        // Player had enough money. Transaction went through.
-        AddItem(m_currentChosenIndex);
-        std::cout << "(Vendor says) Enjoy your new " << m_pProducts.at(m_currentChosenIndex).first->ItemName() << "\n";
+        // Step 3. Player had enough money. Finish transaction.
+        AddItem(index);
+        std::cout << "(Vendor says) Enjoy your new " << m_pProducts.at(index).first->ItemName() << "\n";
         _getch();
+        system("cls");
         return;
     }
 
-    // Player doesn't have enough money.
+    // (Optional Step) Player doesn't have enough money.
     std::cout << "(Vendor says) Apologies, you don't seem to have enough money.\n";
     _getch();
-}
-
-bool Vendor::ProcessPlayerInput(char input)
-{
-    // Step 1. Process given input.
-    switch (input)
-    {
-    case 'w':
-        Selection(&m_currentChosenIndex, 'w');
-        break;
-    case 's':
-        Selection(&m_currentChosenIndex, 's');
-        break;
-    case 'a':
-        PurchaseItem();
-        break;
-    case 'q':
-        system("cls");
-        return true; // Return true if player wants to exit vendor shop.
-    default:
-        std::cout << "Invalid key! [CycleWeapons.cpp]";
-    }
-
-    return false;
 }
 
 void Vendor::DisplayVendorControls()
 {
     std::cout << "\n\nMoney you have: " << m_pMediator->GetPlayerMoney(this);
-    std::cout << "\n\n\nUse the [w] and [s] keys to cycle through inventory.\n";
-    std::cout << "Press [a] to select an item. Press[q] to exit inventory screen.\n\n";
+    std::cout << "\n\n\nUse the " << (char)m_up << " and " << (char)m_down << " keys to cycle through inventory.\n";
+    std::cout << "Press " << (char)m_select << " to select an item. Press " << (char)m_quit << " to exit inventory screen.\n\n";
 }
 
 void Vendor::DisplayVendorMessage()
@@ -252,18 +161,21 @@ void Vendor::DisplayPurchaseOptions()
 {
     for (int i = 0; i < m_productSize; ++i)
     {
-        if (i == m_currentChosenIndex)
+        if (i == m_pCursorManager->GetChosenIndex())
         {
-            std::cout << "[" << m_cursor << "]" << " Item Name: " << m_pProducts.at(i).first->ItemName() << " Price: " << m_pProducts.at(i).second << "\n";
+            std::cout << "[" << m_pCursorManager->GetSymbol(i) << "]" << " Item Name: " << m_pProducts.at(i).first->ItemName() << " Price: " << 
+                m_pProducts.at(i).second << "\n";
         }
 
         else
         {
-            std::cout << "[" << m_marker << "]" << " Item Name: " << m_pProducts.at(i).first->ItemName() << " Price: " << m_pProducts.at(i).second << "\n";
+            std::cout << "[" << m_pCursorManager->GetSymbol(i) << "]" << " Item Name: " << m_pProducts.at(i).first->ItemName() << " Price: " << 
+                m_pProducts.at(i).second << "\n";
         }
     }
 }
 
+// Allow player to browse Vendor shop.
 void Vendor::OpenVendorsShop()
 {
     // Step 1. Get size of products to determine how many to display.
@@ -280,9 +192,28 @@ void Vendor::OpenVendorsShop()
 
         char input = _getch();
 
-        if (ProcessPlayerInput(input))
+        int result = m_pCursorManager->ProcessPlayerInput(input, m_productSize);
+
+        switch (result)
+        {
+        case 0:
+            system("cls");
+            return;
+        case 1:
+            PurchaseItem();
             break;
+        case -1:
+            break;
+        default:
+            break;
+        }
     }
+}
+
+// Override virtual function.
+void Vendor::OpenVendorShop()
+{
+    OpenVendorsShop();
 }
 
 void Vendor::DeleteVendor()
@@ -293,6 +224,8 @@ void Vendor::DeleteVendor()
     m_pUF = nullptr;
     delete m_pItem;
     m_pItem = nullptr;
+    delete m_pCursorManager;
+    m_pCursorManager = nullptr;
 
     for (std::vector<std::pair<class Items*, int>>::iterator it = m_pProducts.begin(); it != m_pProducts.end(); ++it)
     {

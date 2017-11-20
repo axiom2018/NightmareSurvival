@@ -1,17 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Enemies">
       <UniqueIdentifier>{06e21b12-b08a-4390-bb92-05a36508cde2}</UniqueIdentifier>
@@ -43,20 +35,42 @@
     <Filter Include="World Management\Level Management">
       <UniqueIdentifier>{3f1cdc41-d518-412c-8502-e2e8d32f5012}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player\WalletManagement">
-      <UniqueIdentifier>{6049f2ba-5560-4705-9424-12f3af5b96bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="World Management\Level Management\WaveManagerRequestEnemyStrategy">
       <UniqueIdentifier>{69f865a2-e3f7-4921-817f-2d255a2d92b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bullet Management">
-      <UniqueIdentifier>{34489d98-eab8-4eb4-8d7a-40cf64c38190}</UniqueIdentifier>
+    <Filter Include="Cursor Management">
+      <UniqueIdentifier>{5ff02df2-33c3-4c1b-aff6-56451c70c35d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player\InventoryManagement">
+    <Filter Include="Player\Inventory Management">
       <UniqueIdentifier>{5ec039b1-64eb-4acb-b9c7-415ebbde77cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player\CurrentWeaponManagement">
+    <Filter Include="Player\Inventory Management\Upgrade Management">
+      <UniqueIdentifier>{4a07e201-1ec2-49cd-93df-432af2a7e3ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Inventory Management\Weapon Management">
       <UniqueIdentifier>{93c801e5-3daf-4296-802d-ce288fcb3b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Wallet Management">
+      <UniqueIdentifier>{6049f2ba-5560-4705-9424-12f3af5b96bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Inventory Management\Upgrade Management\Upgrade Strategy">
+      <UniqueIdentifier>{e22427b8-6561-45f1-88d1-c7db43ba2ecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Health Management">
+      <UniqueIdentifier>{4d4d8147-73b4-4d7f-a17f-14143b779aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Armor Management">
+      <UniqueIdentifier>{3136635b-b2fd-4648-a59d-611b889ebf9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Pool\Bullet Management">
+      <UniqueIdentifier>{34489d98-eab8-4eb4-8d7a-40cf64c38190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\EnemyAlgorithms\EnemyMovement">
+      <UniqueIdentifier>{7d6e985a-3712-4a6b-98de-1f5645c1e82c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +91,6 @@
     </ClCompile>
     <ClCompile Include="Vampire.cpp">
       <Filter>Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="CalculateMove.cpp">
-      <Filter>Enemies\EnemyAlgorithms</Filter>
     </ClCompile>
     <ClCompile Include="PistolBullet.cpp">
       <Filter>Object Pool</Filter>
@@ -111,9 +122,6 @@
     <ClCompile Include="Bullets.cpp">
       <Filter>Object Pool</Filter>
     </ClCompile>
-    <ClCompile Include="Mediator.cpp">
-      <Filter>Vendor</Filter>
-    </ClCompile>
     <ClCompile Include="UpgradeFactory.cpp">
       <Filter>Items\Upgrades</Filter>
     </ClCompile>
@@ -133,10 +141,10 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="WalletMediator.cpp">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClCompile>
     <ClCompile Include="Wallet.cpp">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClCompile>
     <ClCompile Include="ItemsFactory.cpp">
       <Filter>Items</Filter>
@@ -153,14 +161,47 @@
     <ClCompile Include="EnemyManagement.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
-      <Filter>Items\Weapons</Filter>
-    </ClCompile>
     <ClCompile Include="InventoryManager.cpp">
-      <Filter>Player\InventoryManagement</Filter>
+      <Filter>Player\Inventory Management</Filter>
     </ClCompile>
-    <ClCompile Include="CurrentWeaponManager.cpp">
-      <Filter>Player\CurrentWeaponManagement</Filter>
+    <ClCompile Include="WeaponManager.cpp">
+      <Filter>Player\Inventory Management\Weapon Management</Filter>
+    </ClCompile>
+    <ClCompile Include="UpgradeManager.cpp">
+      <Filter>Player\Inventory Management\Upgrade Management</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorManager.cpp">
+      <Filter>Cursor Management</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstAidStrategy.cpp">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorStrategy.cpp">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="AmmoStrategy.cpp">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthManager.cpp">
+      <Filter>Health Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorManager.cpp">
+      <Filter>Player\Armor Management</Filter>
+    </ClCompile>
+    <ClCompile Include="VendorMediator.cpp">
+      <Filter>Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Object Pool\Bullet Management</Filter>
+    </ClCompile>
+    <ClCompile Include="CalculateMove.cpp">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClCompile>
+    <ClCompile Include="ManageEnemyPosition.cpp">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckArea.cpp">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +226,6 @@
     <ClInclude Include="Directions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CalculateMove.h">
-      <Filter>Enemies\EnemyAlgorithms</Filter>
-    </ClInclude>
     <ClInclude Include="PistolBullet.h">
       <Filter>Object Pool</Filter>
     </ClInclude>
@@ -208,9 +246,6 @@
     </ClInclude>
     <ClInclude Include="Vendor.h">
       <Filter>Vendor</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyDamageRates.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Altitudes.h">
       <Filter>Enemies\EnemyAlgorithms</Filter>
@@ -236,14 +271,8 @@
     <ClInclude Include="WeaponsFactory.h">
       <Filter>Items\Weapons</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponAlgorithms.h">
-      <Filter>Items\Weapons</Filter>
-    </ClInclude>
     <ClInclude Include="Bullets.h">
       <Filter>Object Pool</Filter>
-    </ClInclude>
-    <ClInclude Include="Mediator.h">
-      <Filter>Vendor</Filter>
     </ClInclude>
     <ClInclude Include="Participants.h">
       <Filter>Vendor</Filter>
@@ -279,19 +308,19 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="WalletMediator.h">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClInclude>
     <ClInclude Include="WalletManagementParticipants.h">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClInclude>
     <ClInclude Include="Wallet.h">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClInclude>
     <ClInclude Include="ItemsFactory.h">
       <Filter>Items</Filter>
     </ClInclude>
     <ClInclude Include="WalletManagementParticipantType.h">
-      <Filter>Player\WalletManagement</Filter>
+      <Filter>Player\Wallet Management</Filter>
     </ClInclude>
     <ClInclude Include="WaveManagerRequestEnemyStrategy.h">
       <Filter>World Management\Level Management\WaveManagerRequestEnemyStrategy</Filter>
@@ -311,14 +340,62 @@
     <ClInclude Include="EnemyManagement.h">
       <Filter>Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
-      <Filter>Items\Weapons</Filter>
-    </ClInclude>
     <ClInclude Include="InventoryManager.h">
-      <Filter>Player\InventoryManagement</Filter>
+      <Filter>Player\Inventory Management</Filter>
     </ClInclude>
-    <ClInclude Include="CurrentWeaponManager.h">
-      <Filter>Player\CurrentWeaponManagement</Filter>
+    <ClInclude Include="WeaponManager.h">
+      <Filter>Player\Inventory Management\Weapon Management</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeManager.h">
+      <Filter>Player\Inventory Management\Upgrade Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorManager.h">
+      <Filter>Cursor Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorGUIControls.h">
+      <Filter>Cursor Management</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeStrategy.h">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstAidStrategy.h">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorStrategy.h">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="AmmoStrategy.h">
+      <Filter>Player\Inventory Management\Upgrade Management\Upgrade Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthManager.h">
+      <Filter>Health Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorManager.h">
+      <Filter>Player\Armor Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VendorMediator.h">
+      <Filter>Vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Object Pool\Bullet Management</Filter>
+    </ClInclude>
+    <ClInclude Include="CalculateMove.h">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="ManageEnemyPosition.h">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckArea.h">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinates.h">
+      <Filter>Enemies\EnemyAlgorithms\EnemyMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGameControls.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

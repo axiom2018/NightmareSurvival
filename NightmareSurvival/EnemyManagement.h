@@ -1,19 +1,18 @@
 // EnemyManagement.h
 #pragma once
 #include <vector>
+#include "Definitions.h"
 
 // Manage enemies through an interface. Previous implementation made World.cpp handle enemies. Delegate that responsibility.
 
 class EnemyManagement
 {
     std::vector<class Enemies*> m_pEnemies;
-    class WaveManager *m_pWaveManager; // WaveManager will assist in handling the waves of enemies for every level.
-    const int k_maxEnemiesPerWave = 5;
+    class WaveManager *m_pWaveManager;
+    const int k_maxEnemiesPerWave = MAX_ENEMIES_PER_WAVE;
     int m_totalEnemies;
-    int m_rows;
-    int m_columns;
 public:
-    EnemyManagement(int rows, int columns);
+    EnemyManagement();
     class WaveManager * GetWaveManager();
     class std::vector<class Enemies*> GetEnemies() const;
     bool EnemiesDead() const;

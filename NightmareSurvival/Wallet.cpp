@@ -9,9 +9,16 @@ Wallet::Wallet() :
 
 }
 
-void Wallet::ReceiveFunds(int value)
+// While killing enemies, add all the reward received and have the amount stack.
+void Wallet::AddFunds(int value)
 {
     m_money += value;
+}
+
+// The mediator will supply the change after player makes a purchase.
+void Wallet::ReceiveChange(int value)
+{
+    m_money = value;
 }
 
 int Wallet::GetFunds() const

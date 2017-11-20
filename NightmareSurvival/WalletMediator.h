@@ -3,7 +3,7 @@
 #include <list>
 #include <string>
 
-/* 9-29-2017: The purpose of WalletMediator is to decouple the current connection of Player and all other enemies. Currently, when a
+/* The purpose of WalletMediator is to decouple the current connection of Player and all other enemies. Currently, when a
 player defeats an enemy, that enemy has a saved reference of player which they can all the AwardMoney() function that is in the players
 interface. We'll have a wallet to manage all the players money which is of course a decent use of delegating. Then we'll make the wallet
 and Enemies communicate to manage the players money, but the communication is decoupled since this mediator will exist. So 2 things

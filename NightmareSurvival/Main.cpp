@@ -4,10 +4,7 @@
 #include <time.h>
 #include "vld.h"
 #include "World.h"
-#include "WeaponsFactory.h"
-#include "Items.h"
-#include <list>
-#include <string>
+#include <vector>
 
 int main()
 {

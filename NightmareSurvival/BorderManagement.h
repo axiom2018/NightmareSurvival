@@ -2,6 +2,7 @@
 #pragma once
 
 // In the old implementation, the player checked for borders before movement. Delegate that responsibility to this class.
+
 class BorderManagement
 {
     // Necessary variables/functions to control do border managing that include pointer to player position and world information.
@@ -15,7 +16,6 @@ class BorderManagement
     bool WestBorderCheck();
     bool EastBorderCheck();
 public:
-    // Interface.
-    BorderManagement(int *playerX, int *playerY, int worldWidth, int worldHeight);
+    BorderManagement(int *playerX, int *playerY);
     bool CheckAreaForBorders(char key);
 };

@@ -6,7 +6,7 @@ void Dots::Draw() const
     std::cout << m_dot;
 }
 
-char Dots::GetChar()
+char Dots::GetChar() const
 {
     return m_dot;
 }

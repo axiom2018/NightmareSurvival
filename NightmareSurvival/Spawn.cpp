@@ -1,16 +1,8 @@
 // Spawn.cpp
 #include "Spawn.h"
 #include "World.h"
+#include "Definitions.h"
 #include <stdlib.h>
-
-// Calculate enemy spawn position.
-
-// Initialize settings with constructor.
-Spawn::Spawn()
-{
-    m_maxHeight = World::Instance()->GetHeight();
-    m_maxWidth = World::Instance()->GetWidth();
-}
 
 // Add to taken positions.
 void Spawn::AddPosition(std::pair<int, int> newPosition)
@@ -61,8 +53,8 @@ bool Spawn::IsVectorEmpty(int *y, int *x)
 // East spawn point.
 void Spawn::EastSP(int *y, int *x)
 {
-    int max = World::Instance()->GetHeight() - 2;
-    *x = World::Instance()->GetWidth() - 2; 
+    int max = ROWS - 2;
+    *x = COLUMNS - 2; 
 
     while (true)
     {
@@ -81,7 +73,7 @@ void Spawn::EastSP(int *y, int *x)
 // West spawn point.
 void Spawn::WestSP(int *y, int *x)
 {
-    int max = World::Instance()->GetHeight() - 2;
+    int max = ROWS - 2;
     *x = 1;
 
     while (true)
@@ -101,8 +93,8 @@ void Spawn::WestSP(int *y, int *x)
 // South spawn point.
 void Spawn::SouthSP(int *y, int *x)
 {
-    int max = World::Instance()->GetWidth() - 2;
-    *y = World::Instance()->GetHeight() - 2;
+    int max = COLUMNS - 2;
+    *y = ROWS - 2;
 
     while (true)
     {
@@ -122,7 +114,7 @@ void Spawn::SouthSP(int *y, int *x)
 void Spawn::NorthSP(int *y, int *x)
 {
     // Step 1. Ready the variables.
-    int max = m_maxWidth - 2;
+    int max = COLUMNS - 2;
     *y = 1;
 
     while (true)
@@ -168,7 +160,7 @@ void Spawn::SetSpawnDirection(int *y, int *x)
 }
 
 // Select a spawn position for an enemy.
-void Spawn::SpawnPoint(int * y, int * x, int width, int height)
+void Spawn::SpawnPoint(int *y, int *x)
 {
     // Step 1. Begin process to find spawn point.
     SetSpawnDirection(y, x);
