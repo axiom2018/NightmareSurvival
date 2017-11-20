@@ -1,7 +1,5 @@
-﻿  World.cpp
-  ObjectPool.cpp
+﻿  WaveManager.cpp
   BulletManager.cpp
   Generating Code...
-  Skipping... (no relevant changes detected)
-  WeaponManager.cpp
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   NightmareSurvival.vcxproj -> C:\Users\Axiom\Desktop\NightmareSurvival(Final)\Debug\NightmareSurvival.exe

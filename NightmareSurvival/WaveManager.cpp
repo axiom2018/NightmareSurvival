@@ -18,7 +18,7 @@ WaveManager::WaveManager() :
 
 int WaveManager::GetCurrentWave() const
 {
-    return (int)m_curWave + 1;
+    return (int)m_curWave;
 }
 
 bool WaveManager::IsGameOver() const
